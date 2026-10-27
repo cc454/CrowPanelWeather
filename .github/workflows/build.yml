@@ -1,0 +1,32 @@
+name: Firmware and native checks
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install build tools
+        run: python -m pip install platformio==6.1.18 pillow
+      - name: Compile both display revisions
+        run: pio run -e crowpanel_green -e crowpanel_legacy
+      - name: Parser, DST and renderer checks
+        run: python tools/test-native.py
+      - name: Upload firmware and rendered screens
+        uses: actions/upload-artifact@v4
+        with:
+          name: crowpanel-weather-firmware
+          path: |
+            .pio/build/crowpanel_green/firmware.bin
+            .pio/build/crowpanel_green/bootloader.bin
+            .pio/build/crowpanel_green/partitions.bin
+            .pio/build/crowpanel_legacy/firmware.bin
+            .pio/build/crowpanel_legacy/bootloader.bin
+            .pio/build/crowpanel_legacy/partitions.bin
+            tests/build/*.png
+            licenses/
+            THIRD_PARTY.md

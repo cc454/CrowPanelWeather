@@ -4,3 +4,18 @@
 # Never commit runtime credentials or private location files.
 /secrets
 /location
+/.pio/
+/.vscode/
+/settings
+/config/secrets
+/config/location
+/config/settings
+/tests/build/
+/tests/*.exe
+/tests/*.pdb
+/tests/*.obj
+/tests/*.lib
+/tests/*.exp
+/.zig-cache/
+/dist/
+__pycache__/

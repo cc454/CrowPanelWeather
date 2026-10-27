@@ -1,6 +1,6 @@
 # CrowPanelWeather requirements
 
-Status: initial draft for review, 2026-10-27. This document specifies intended behavior; firmware is not implemented yet.
+Status: implementation requirements, 2026-10-27. Initial firmware and installation instructions are now included; physical-board acceptance remains pending. See README.md for build/test status and limitations.
 Hardware: Elecrow CrowPanel ESP32-S3 4.2-inch, monochrome 400×300; see [specs](specs). “Echo” is interpreted as Elecrow from the established project context.
 
 ## Goal and priorities

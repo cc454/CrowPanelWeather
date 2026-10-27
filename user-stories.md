@@ -1,7 +1,7 @@
 # CrowPanelWeather user stories
 
 Initial draft, 2026-10-27. See [requirements](requirements.md) for definitions, proposed defaults, constraints and provider sources.
-Must = first version; Optional = enhancement. Stories describe future acceptance, not completed software.
+Must = first version; Optional = enhancement. Initial firmware is included; these remain acceptance criteria, with physical-board validation pending. See README.md for validation status.
 
 | ID | Priority | User story | Acceptance criteria | Requirements |
 | --- | --- | --- | --- | --- |
