@@ -7,7 +7,7 @@ Hardware: Elecrow CrowPanel ESP32-S3 4.2-inch, monochrome 400×300; see [specs](
 
 Provide a readable, unattended weather dashboard for one configured location, with simple file-based setup and physical-button navigation. Support both USB and battery use, as requested.
 
-Must: Wi-Fi setup, coordinate configuration, keyless weather source, current and feels-like temperatures, today's high, tonight's low, today's temperature curve, 3–5 future days with high/low, precipitation probability and weather symbols, configurable 30/60-minute updates, UV information, and visible data freshness.
+Must: Wi-Fi setup, coordinate configuration, keyless weather source, current and feels-like temperatures, today's high, tonight's low, today's temperature curve, 3–5 future days with high/low, precipitation probability and weather symbols, fixed 60-minute automatic updates plus manual refresh, UV information, and visible data freshness.
 Optional: sunrise/sunset and wind. UV is treated as required because it was explicitly requested before also appearing in the optional list.
 
 ## Provider recommendation
@@ -22,7 +22,7 @@ Use Open-Meteo for version 1. Its free hosted API requires no key for noncommerc
 
 OpenWeather's current [pricing](https://openweathermap.org/price) lists One Call 4.0 and marks 3.0 deprecated; do not adopt old reference-project endpoint instructions without verification. [Authentication](https://openweathermap.org/appid) requires a key. [Weather Underground access](https://www.wunderground.com/pws-api) is aimed at personal weather station contributors.
 
-At one combined request per scheduled update, 30/60 minutes means 48/24 normal requests per day, excluding startup, retries and manual requests. Polling more frequently does not guarantee newly produced forecasts. Keep fetching/parsing separate from the display model, but implementing three providers is outside version 1.
+At one combined request per scheduled update, a 60-minute interval means 24 normal requests per day, excluding startup, retries and manual requests. Polling more frequently does not guarantee newly produced forecasts. Keep fetching/parsing separate from the display model, but implementing three providers is outside version 1.
 
 ## Functional requirements
 
@@ -36,9 +36,9 @@ At one combined request per scheduled update, 30/60 minutes means 48/24 normal r
 | R06 | Show the next five local dates excluding today by default; allow 3, 4 or 5 days. Each shows weekday/date, weather symbol, high/low in °C and precipitation probability in %. |
 | R07 | Display today's maximum UV index with an explicit “UV max” label. A current UV reading may be added only if separately available and labeled. Missing data shows “—”, never zero. |
 | R08 | Optional sunrise/sunset use location-local times and handle days without a sunrise/sunset. Optional wind shows speed with units and direction. |
-| R09 | Fetch at startup and on a configurable 30- or 60-minute schedule; proposed default is 60 minutes. A menu can change the interval persistently; file reload restores the file's value. |
+| R09 | Fetch at startup and automatically every 60 minutes. The interval is fixed and is not configurable through files or menus. Manual Refresh (R10) provides an update between scheduled fetches and does not reset the hourly schedule. |
 | R10 | Provide manual Refresh and Reload configuration menu actions. Coalesce repeated refresh requests and apply a proposed 60-second minimum between manual network fetches. |
-| R11 | Always show location and last successful fetch date/time. Failed fetches retain the last good data, visibly indicate offline/error status and never advance the success timestamp. Mark data stale once older than two configured intervals. |
+| R11 | Always show location and last successful fetch date/time. Failed fetches retain the last good data, visibly indicate offline/error status and never advance the success timestamp. Mark data stale once older than 120 minutes (two hourly intervals). |
 | R12 | Retain a validated cache across restarts. With no usable cache and no connection, show “No weather data” plus setup/error guidance. Never reuse another location's cached weather after coordinates change. |
 | R13 | Load/save configuration and cache using microSD; use an internal last-known-good copy so an absent card after successful setup does not stop operation. First startup without valid configuration gives a setup message. No hot-swap requirement. |
 | R14 | Menu, Exit and the up/down/press switch provide all ordinary interaction. Boot and Reset retain their hardware roles. No keyboard-style credential entry on the display. |
@@ -60,10 +60,10 @@ Files are UTF-8 JSON on the microSD root; actual private files are never committ
 
 `settings`:
 ```json
-{"refresh_minutes":60,"forecast_days":5,"power_profile":"usb","show_sun_times":false,"show_wind":false}
+{"forecast_days":5,"power_profile":"usb","show_sun_times":false,"show_wind":false}
 ```
 
-Credentials are required; settings can fall back to documented defaults. Load all files at startup or explicit Reload configuration. Validate a complete candidate before replacing the last-known-good configuration; identify which file needs correction. Show the active power profile and interval in the menu. Do not attempt automatic USB/battery detection unless the hardware supports it reliably.
+Credentials are required; settings can fall back to documented defaults. Load all files at startup or explicit Reload configuration. Validate a complete candidate before replacing the last-known-good configuration; identify which file needs correction. Show the active power profile and fixed 60-minute interval in status. Do not attempt automatic USB/battery detection unless the hardware supports it reliably.
 
 ### Weather meanings — proposed decisions
 
@@ -91,7 +91,7 @@ Proposed single-screen arrangement: location/freshness header; large current tem
 | Reset | Hardware restart, preserve saved configuration |
 | Boot | Firmware download/startup role; no weather-app action |
 
-Menus include Refresh, refresh interval, forecast length, power profile, optional fields, Reload configuration, and status/help. Highlight focus, debounce inputs, avoid multiple simultaneous refreshes, and return to home after a proposed 30 seconds of inactivity, discarding unconfirmed edits. Menu navigation should use cached data rather than fetching on every press.
+Menus include Refresh, forecast length, power profile, optional fields, Reload configuration, and status/help. Highlight focus, debounce inputs, avoid multiple simultaneous refreshes, and return to home after a proposed 30 seconds of inactivity, discarding unconfirmed edits. Menu navigation should use cached data rather than fetching on every press.
 
 ## Reliability, privacy and display quality
 
