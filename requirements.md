@@ -7,7 +7,7 @@ Hardware: Elecrow CrowPanel ESP32-S3 4.2-inch, monochrome 400×300; see [specs](
 
 Provide a readable, unattended weather dashboard for one configured location, with simple file-based setup and physical-button navigation. Support both USB and battery use, as requested.
 
-Must: Wi-Fi setup, coordinate configuration, keyless weather source, current and feels-like temperatures, today's high, tonight's low, today's temperature curve, 3–5 future days with high/low, precipitation probability and weather symbols, fixed 60-minute automatic updates plus manual refresh, UV information, and visible data freshness.
+Must: Wi-Fi setup, coordinate configuration, keyless weather source, current and feels-like temperatures, today's high, tonight's low, today's temperature curve, a selectable three- or five-day outlook with high/low, precipitation probability and weather symbols, fixed 60-minute automatic updates plus manual refresh, UV information, and visible data freshness.
 Optional: sunrise/sunset and wind. UV is treated as required because it was explicitly requested before also appearing in the optional list.
 
 ## Provider recommendation
@@ -31,9 +31,9 @@ At one combined request per scheduled update, a 60-minute interval means 24 norm
 | R01 | Read SSID and password from a runtime file named exactly `secrets`; connect to a compatible 2.4 GHz Wi-Fi network without editing/rebuilding firmware. Missing or invalid credentials produce a useful setup message without displaying the password. |
 | R02 | Read decimal latitude and longitude from a file named exactly `location`; accept ranges −90…90 and −180…180, reject missing/out-of-range values, never silently substitute another town. Optional label and timezone override are supported. |
 | R03 | Fetch Open-Meteo over HTTPS with certificate validation. A fresh setup requires no weather account or API key. Handle time synchronization before validated HTTPS. |
-| R04 | On the home screen show current temperature prominently, feels-like temperature, weather symbol, today's high and the overnight low labeled “Low”, with Celsius as the proposed default. Use a large current-condition symbol (sun, rain, cloud, mixed conditions, etc.) alongside the large temperature; the current symbol must be visibly larger than the daily outlook symbols. Label forecast-derived conditions rather than implying a physical sensor reading. |
+| R04 | On the home screen show current temperature prominently, feels-like temperature, weather symbol, today's high and the overnight low labeled “Low”, with Celsius as the proposed default. Use a current-condition symbol (sun, rain, cloud, mixed conditions, etc.) alongside the large temperature. Its visible artwork height must match the rendered height of the temperature numerals (not the font's line box); keep its aspect ratio and align the symbol and numerals vertically. Both remain visibly larger than the daily outlook symbols. Label forecast-derived conditions rather than implying a physical sensor reading. |
 | R05 | Show an hourly temperature curve for the configured location's current calendar day. Label time and °C axes, mark the current time, leave missing hours as gaps, and add horizontal dotted gridlines every 5°C. Round the day's minimum down to a multiple of 5°C and its maximum up to a multiple of 5°C so the full curve is enclosed; include and label both boundary lines. Use the whole local day's range, not the overnight Low metric. For a flat day exactly on a 5°C boundary, expand the range by 5°C on each side. Handle negative temperatures and unavailable values without clipping or a zero-range error. |
-| R06 | Show the next five local dates excluding today by default; allow 3, 4 or 5 days. Each shows weekday/date, weather symbol, high/low in °C and precipitation probability in %. |
+| R06 | Provide a user-selectable toggle between Classic three (next three local dates) and Classic five (next five local dates), excluding today. Default to Classic five. Select via Menu → Forecast view using up/down and switch press to confirm; Exit cancels an unconfirmed change. Persist the confirmed choice across restart. Redraw immediately from cached forecast data, without a network fetch or changing the hourly schedule. Each day shows weekday/date, weather symbol, high/low in °C and precipitation probability in %. |
 | R07 | Display today's maximum UV index with an explicit “UV max” label. A current UV reading may be added only if separately available and labeled. Missing data shows “—”, never zero. |
 | R08 | Optional sunrise/sunset use location-local times and handle days without a sunrise/sunset. Optional wind shows speed with units and direction. |
 | R09 | Fetch at startup and automatically every 60 minutes. The interval is fixed and is not configurable through files or menus. Manual Refresh (R10) provides an update between scheduled fetches and does not reset the hourly schedule. |
@@ -43,7 +43,7 @@ At one combined request per scheduled update, a 60-minute interval means 24 norm
 | R13 | Load/save configuration and cache using microSD; use an internal last-known-good copy so an absent card after successful setup does not stop operation. First startup without valid configuration gives a setup message. No hot-swap requirement. |
 | R14 | Menu, Exit and the up/down/press switch provide all ordinary interaction. Boot and Reset retain their hardware roles. No keyboard-style credential entry on the display. |
 | R15 | Support explicit USB and battery operating profiles; USB remains responsive, battery profile sleeps between updates. Wake and button responsiveness during sleep require verification on the actual board before being promised. |
-| R16 | Use a solid black header with white location and date text, inspired by Forecast first, and a large-temperature dashboard inspired by Big temperature. Develop readable three- and five-day outlook layouts. Target a current-condition symbol at least 64×64 pixels, with final sizing confirmed on the physical panel. Preserve a visible UV max, feels-like, High, Low, curve, provider attribution and freshness status. |
+| R16 | Use the selected Classic three and Classic five layouts: solid black header with white location/date text; large current temperature and an equally tall current-condition symbol on the left; today's curve on the right; three or five forecast columns below. Match the symbol's visible artwork height to the temperature numerals as defined in R04, replacing the earlier minimum 64×64-pixel target. Verify alignment, sizing and readability on the physical panel. Preserve a visible UV max, feels-like, High, Low, curve, provider attribution and freshness status. |
 
 ### Proposed configuration contract
 
@@ -64,7 +64,7 @@ Files are UTF-8 JSON on the microSD root; actual private files are never committ
 {"forecast_days":5,"power_profile":"usb","show_sun_times":false,"show_wind":false}
 ```
 
-Credentials are required; settings can fall back to documented defaults. Load all files at startup or explicit Reload configuration. Validate a complete candidate before replacing the last-known-good configuration; identify which file needs correction. Show the active power profile and fixed 60-minute interval in status. Do not attempt automatic USB/battery detection unless the hardware supports it reliably.
+Credentials are required; settings can fall back to documented defaults. `forecast_days` accepts only 3 or 5, selecting Classic three or Classic five respectively; other values are invalid. A confirmed menu choice is saved internally and takes precedence over the card value on later restarts. Explicit Reload configuration reapplies the validated card value and persists it; a reload with invalid settings retains the last-known-good configuration. Load all files at startup or explicit Reload configuration. Validate a complete candidate before replacing the last-known-good configuration; identify which file needs correction. Show the active power profile and fixed 60-minute interval in status. Do not attempt automatic USB/battery detection unless the hardware supports it reliably.
 
 ### Weather meanings — proposed decisions
 
@@ -81,7 +81,7 @@ Open-Meteo field plan: current `temperature_2m`, `apparent_temperature`, `weathe
 
 ## Screen and controls
 
-Chosen visual direction: solid black header with white location/date text; large current temperature and enlarged weather icon alongside Feels/High/Low/UV max; temperature curve; three or five forecast columns; provider credit/status footer. Five remains the proposed default. Five refined 400×300 layout candidates explore this direction; final layout selection remains open. Optional wind/sun information may use a details screen so the core dashboard remains readable.
+Selected layouts: Classic three and Classic five at 400×300. Both use a solid black header with white location/date text; a large current temperature and weather symbol of equal visible height on the left, with Feels/High/Low/UV max; today's temperature curve on the right; three or five forecast columns below; and provider credit/status footer. Classic five is the initial default. Switching views changes the outlook column count and spacing while preserving the current summary and curve. Optional wind/sun information may use a details screen so the core dashboard remains readable.
 
 | Control | Proposed behavior |
 | --- | --- |
@@ -92,7 +92,7 @@ Chosen visual direction: solid black header with white location/date text; large
 | Reset | Hardware restart, preserve saved configuration |
 | Boot | Firmware download/startup role; no weather-app action |
 
-Menus include Refresh, forecast length, power profile, optional fields, Reload configuration, and status/help. Highlight focus, debounce inputs, avoid multiple simultaneous refreshes, and return to home after a proposed 30 seconds of inactivity, discarding unconfirmed edits. Menu navigation should use cached data rather than fetching on every press.
+Menus include Refresh, Forecast view (Classic three / Classic five), power profile, optional fields, Reload configuration, and status/help. Highlight focus, debounce inputs, avoid multiple simultaneous refreshes, and return to home after a proposed 30 seconds of inactivity, discarding unconfirmed edits. Menu navigation should use cached data rather than fetching on every press.
 
 ## Reliability, privacy and display quality
 
@@ -100,7 +100,7 @@ Menus include Refresh, forecast length, power profile, optional fields, Reload c
 - Distinguish Wi-Fi, DNS/connection, time-sync, HTTP/rate-limit and invalid-response failures. Use bounded timeouts and backoff; honor server retry guidance and avoid retry storms. Proposed retry delays: 1, 5, then 15 minutes, capped at the normal interval.
 - Do not log credentials or API keys, display them, or publish them in example files. Removable-card storage is plaintext and is not encrypted credential protection.
 - E-paper refresh policy must suit the identified panel revision; verify supported partial refresh and periodic full refresh on hardware. No second-by-second animations or clock redraws.
-- Test with a real 400×300 frame: no clipping, distinguishable symbols, readable negative and two-digit temperatures, dates, units and percentages. Validate both three- and five-day layouts with the enlarged current symbol and 5°C dotted graph grid. Five columns and the curve must coexist before the layout is accepted.
+- Test with a real 400×300 frame: no clipping, distinguishable symbols, readable negative and two-digit temperatures, dates, units and percentages. Validate both Classic layouts with the symbol matching the temperature numerals' visible height and the 5°C dotted graph grid. Verify clear, rain, cloud, mixed and snow artwork at that shared height, preserving aspect ratio and avoiding overlap. Five columns and the curve must coexist before the layout is accepted.
 - Show “Weather: Open-Meteo” on the dashboard and provide the full attribution link in help/documentation.
 - Bound response/cache sizes to available memory and recover gracefully from malformed files, missing values, interrupted writes and missing storage.
 - Identify the board/display revision before selecting a driver. Do not assume every 4.2-inch revision has identical behavior.
@@ -125,4 +125,4 @@ Version 1 excludes OTA, web setup, touch interaction, air quality, alerts, indoo
 
 Graph examples: 7–16°C uses gridlines at 5, 10, 15 and 20°C; −7–3°C uses −10, −5, 0 and 5°C. Exact multiples remain bounds unless the entire day is flat. Missing hours stay gaps; unavailable ranges show an unavailable chart rather than invented ticks.
 
-Review decisions still open: exact overnight definition (the requested Low rename does not change the existing draft definition), final 400×300 layout, battery runtime target and validated hardware/power behavior. Proposed defaults above make the draft actionable without claiming user approval.
+Review decisions still open: exact overnight definition (the requested Low rename does not change the existing draft definition), final pixel sizing within the selected Classic layouts, battery runtime target and validated hardware/power behavior. Proposed defaults above make the draft actionable without claiming user approval.
