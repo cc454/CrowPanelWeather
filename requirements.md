@@ -31,8 +31,8 @@ At one combined request per scheduled update, a 60-minute interval means 24 norm
 | R01 | Read SSID and password from a runtime file named exactly `secrets`; connect to a compatible 2.4 GHz Wi-Fi network without editing/rebuilding firmware. Missing or invalid credentials produce a useful setup message without displaying the password. |
 | R02 | Read decimal latitude and longitude from a file named exactly `location`; accept ranges −90…90 and −180…180, reject missing/out-of-range values, never silently substitute another town. Optional label and timezone override are supported. |
 | R03 | Fetch Open-Meteo over HTTPS with certificate validation. A fresh setup requires no weather account or API key. Handle time synchronization before validated HTTPS. |
-| R04 | On the home screen show current temperature prominently, feels-like temperature, weather symbol, today's high and tonight's low, with Celsius as the proposed default. Label forecast-derived conditions rather than implying a physical sensor reading. |
-| R05 | Show an hourly temperature curve for the configured location's current calendar day. Label time and °C axes, mark the current time, leave missing hours as gaps, and handle a flat curve without a zero-range error. |
+| R04 | On the home screen show current temperature prominently, feels-like temperature, weather symbol, today's high and the overnight low labeled “Low”, with Celsius as the proposed default. Use a large current-condition symbol (sun, rain, cloud, mixed conditions, etc.) alongside the large temperature; the current symbol must be visibly larger than the daily outlook symbols. Label forecast-derived conditions rather than implying a physical sensor reading. |
+| R05 | Show an hourly temperature curve for the configured location's current calendar day. Label time and °C axes, mark the current time, leave missing hours as gaps, and add horizontal dotted gridlines every 5°C. Round the day's minimum down to a multiple of 5°C and its maximum up to a multiple of 5°C so the full curve is enclosed; include and label both boundary lines. Use the whole local day's range, not the overnight Low metric. For a flat day exactly on a 5°C boundary, expand the range by 5°C on each side. Handle negative temperatures and unavailable values without clipping or a zero-range error. |
 | R06 | Show the next five local dates excluding today by default; allow 3, 4 or 5 days. Each shows weekday/date, weather symbol, high/low in °C and precipitation probability in %. |
 | R07 | Display today's maximum UV index with an explicit “UV max” label. A current UV reading may be added only if separately available and labeled. Missing data shows “—”, never zero. |
 | R08 | Optional sunrise/sunset use location-local times and handle days without a sunrise/sunset. Optional wind shows speed with units and direction. |
@@ -43,6 +43,8 @@ At one combined request per scheduled update, a 60-minute interval means 24 norm
 | R13 | Load/save configuration and cache using microSD; use an internal last-known-good copy so an absent card after successful setup does not stop operation. First startup without valid configuration gives a setup message. No hot-swap requirement. |
 | R14 | Menu, Exit and the up/down/press switch provide all ordinary interaction. Boot and Reset retain their hardware roles. No keyboard-style credential entry on the display. |
 | R15 | Support explicit USB and battery operating profiles; USB remains responsive, battery profile sleeps between updates. Wake and button responsiveness during sleep require verification on the actual board before being promised. |
+
+| R16 | Use a solid black header with white location and date text, inspired by Forecast first, and a large-temperature dashboard inspired by Big temperature. Develop readable three- and five-day outlook layouts. Target a current-condition symbol at least 64×64 pixels, with final sizing confirmed on the physical panel. Preserve a visible UV max, feels-like, High, Low, curve, provider attribution and freshness status. |
 
 ### Proposed configuration contract
 
@@ -70,7 +72,7 @@ Credentials are required; settings can fall back to documented defaults. Load al
 - Current: provider's current conditions and associated timestamp.
 - Today: local calendar date at the configured coordinates.
 - Today's high: provider daily maximum for today.
-- Tonight's low: minimum hourly temperature from local 18:00 today up to, but excluding, 06:00 tomorrow. Before 06:00, use the night that began yesterday. Label the date/window in details. If hours are missing, show unavailable rather than presenting an incomplete minimum as complete. Fetch the previous day's hourly data when needed.
+- Low (home-screen label; replaces “Tonight” only): minimum hourly temperature from local 18:00 today up to, but excluding, 06:00 tomorrow. Before 06:00, use the night that began yesterday. Label the date/window in details. If hours are missing, show unavailable rather than presenting an incomplete minimum as complete. Fetch the previous day's hourly data when needed.
 - Outlook high/low: daily calendar-day maximum/minimum, distinct from the overnight metric.
 - Precipitation %: daily maximum hourly probability, labeled “precip. chance”; it is neither rainfall amount nor a sum of hourly percentages.
 - Symbols: consistent mapping for clear, partly cloudy, cloudy, fog, drizzle, rain, freezing precipitation, snow, showers and thunderstorms; unknown codes use an explicit fallback.
@@ -80,7 +82,7 @@ Open-Meteo field plan: current `temperature_2m`, `apparent_temperature`, `weathe
 
 ## Screen and controls
 
-Proposed single-screen arrangement: location/freshness header; large current temperature and icon alongside feels-like/high/tonight/UV; temperature curve; five compact forecast columns; provider credit/status footer. Exact pixel allocation is deferred to a 400×300 mockup. Optional wind/sun information may use a details screen so the core dashboard remains readable.
+Chosen visual direction: solid black header with white location/date text; large current temperature and enlarged weather icon alongside Feels/High/Low/UV max; temperature curve; three or five forecast columns; provider credit/status footer. Five remains the proposed default. Five refined 400×300 layout candidates explore this direction; final layout selection remains open. Optional wind/sun information may use a details screen so the core dashboard remains readable.
 
 | Control | Proposed behavior |
 | --- | --- |
@@ -99,7 +101,7 @@ Menus include Refresh, forecast length, power profile, optional fields, Reload c
 - Distinguish Wi-Fi, DNS/connection, time-sync, HTTP/rate-limit and invalid-response failures. Use bounded timeouts and backoff; honor server retry guidance and avoid retry storms. Proposed retry delays: 1, 5, then 15 minutes, capped at the normal interval.
 - Do not log credentials or API keys, display them, or publish them in example files. Removable-card storage is plaintext and is not encrypted credential protection.
 - E-paper refresh policy must suit the identified panel revision; verify supported partial refresh and periodic full refresh on hardware. No second-by-second animations or clock redraws.
-- Test with a real 400×300 frame: no clipping, distinguishable symbols, readable negative and two-digit temperatures, dates, units and percentages. Five columns and the curve must coexist before the layout is accepted.
+- Test with a real 400×300 frame: no clipping, distinguishable symbols, readable negative and two-digit temperatures, dates, units and percentages. Validate both three- and five-day layouts with the enlarged current symbol and 5°C dotted graph grid. Five columns and the curve must coexist before the layout is accepted.
 - Show “Weather: Open-Meteo” on the dashboard and provide the full attribution link in help/documentation.
 - Bound response/cache sizes to available memory and recover gracefully from malformed files, missing values, interrupted writes and missing storage.
 - Identify the board/display revision before selecting a driver. Do not assume every 4.2-inch revision has identical behavior.
@@ -122,4 +124,6 @@ Acceptance: scheduled wake/fetch/render/sleep works from battery; USB operation 
 
 Version 1 excludes OTA, web setup, touch interaction, air quality, alerts, indoor sensors and multiple locations. These may be proposed later rather than inherited automatically from references.
 
-Review decisions still open: exact overnight definition, final 400×300 layout, battery runtime target and validated hardware/power behavior. Proposed defaults above make the draft actionable without claiming user approval.
+Graph examples: 7–16°C uses gridlines at 5, 10, 15 and 20°C; −7–3°C uses −10, −5, 0 and 5°C. Exact multiples remain bounds unless the entire day is flat. Missing hours stay gaps; unavailable ranges show an unavailable chart rather than invented ticks.
+
+Review decisions still open: exact overnight definition (the requested Low rename does not change the existing draft definition), final 400×300 layout, battery runtime target and validated hardware/power behavior. Proposed defaults above make the draft actionable without claiming user approval.
