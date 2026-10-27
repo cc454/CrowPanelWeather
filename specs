@@ -1,0 +1,56 @@
+# CrowPanel ESP32 4.2" e-Paper HMI Display — Technical Specifications
+
+Resolution: 400 × 300 pixels (black and white).
+Manufacturer: Elecrow.
+Verified: 2026-10-27.
+
+## Hardware
+
+| Parameter | Specification |
+| --- | --- |
+| Screen diagonal | 4.2 inches |
+| Technology | Active Matrix Electrophoretic Display (AM EPD) |
+| Display controller | SSD1683 |
+| MCU module | ESP32-S3-WROOM-1-N8R8 |
+| CPU frequency | Up to 240 MHz |
+| Flash / PSRAM | 8 MB / 8 MB |
+| Active display area | 84.8 × 63.6 mm |
+| Pixel pitch | 0.212 × 0.212 mm |
+| Viewing angle | Full viewing angle |
+| Display interface | 3-wire / 4-wire SPI |
+| Refresh support | Partial refresh |
+| Connections | UART0 ×1, BAT ×1, GPIO connector ×1, TF (microSD) slot ×1 |
+| Controls | Rotary switch, Menu, Exit, Reset, Boot |
+| Development environments | Arduino IDE, ESP-IDF, MicroPython |
+| Display operating voltage | 2.2–3.7 V |
+| Operating temperature | 0–50 °C |
+| Storage temperature | −25–70 °C |
+
+The display is reflective, requires ambient light rather than a backlight,
+and retains its image when power is removed.
+
+## Display GPIO mapping
+
+| Signal | ESP32-S3 GPIO |
+| --- | --- |
+| SCK | 12 |
+| MOSI | 11 |
+| RES (reset) | 47 |
+| DC (data/command) | 46 |
+| CS (chip select) | 45 |
+| BUSY | 48 |
+
+## Integration notes
+
+- The voltage range above is explicitly labeled as the display operating
+  voltage in Elecrow's repository. It must not be treated as a specification
+  for every board power input or GPIO.
+- A packed 1-bit 400 × 300 framebuffer requires 15,000 bytes (calculated:
+  400 × 300 ÷ 8), excluding library overhead and additional buffers.
+- Refresh duration and board sleep current depend on firmware and hardware;
+  no guaranteed values are specified here.
+
+## Official sources
+
+- [Elecrow hardware specifications and pin definitions](https://github.com/Elecrow-RD/CrowPanel-ESP32-4.2-E-paper-HMI-Display-with-400-300)
+- [Elecrow product page](https://www.elecrow.com/crowpanel-esp32-4-2-e-paper-hmi-display-with-400-300-resolution-black-white-color-driven-by-spi-interface.html)
