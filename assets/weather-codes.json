@@ -1,0 +1,100 @@
+{
+  "source": "https://open-meteo.com/en/docs#weathervariables",
+  "checked": "2026-10-27",
+  "fallback": "unknown",
+  "notes": "Entry arrays are [day, night]; single entries apply to both. Daily outlook uses day artwork. Intensity may share artwork; preserve the exact code in text/details.",
+  "codes": {
+    "0": [
+      "clear-day",
+      "clear-night"
+    ],
+    "1": [
+      "mainly-clear-day",
+      "mainly-clear-night"
+    ],
+    "2": [
+      "partly-cloudy-day",
+      "partly-cloudy-night"
+    ],
+    "3": [
+      "overcast"
+    ],
+    "45": [
+      "fog"
+    ],
+    "48": [
+      "rime-fog"
+    ],
+    "51": [
+      "drizzle"
+    ],
+    "53": [
+      "drizzle"
+    ],
+    "55": [
+      "drizzle"
+    ],
+    "56": [
+      "freezing-drizzle"
+    ],
+    "57": [
+      "freezing-drizzle"
+    ],
+    "61": [
+      "rain"
+    ],
+    "63": [
+      "rain"
+    ],
+    "65": [
+      "heavy-rain"
+    ],
+    "66": [
+      "freezing-rain"
+    ],
+    "67": [
+      "freezing-rain"
+    ],
+    "71": [
+      "snow"
+    ],
+    "73": [
+      "snow"
+    ],
+    "75": [
+      "heavy-snow"
+    ],
+    "77": [
+      "snow-grains"
+    ],
+    "80": [
+      "rain-showers-day",
+      "rain-showers-night"
+    ],
+    "81": [
+      "rain-showers-day",
+      "rain-showers-night"
+    ],
+    "82": [
+      "heavy-rain-showers"
+    ],
+    "85": [
+      "snow-showers"
+    ],
+    "86": [
+      "snow-showers"
+    ],
+    "95": [
+      "thunderstorm"
+    ],
+    "96": [
+      "hail-thunderstorm"
+    ],
+    "97": [
+      "heavy-thunderstorm"
+    ],
+    "99": [
+      "hail-thunderstorm"
+    ]
+  }
+}

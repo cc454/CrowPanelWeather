@@ -1,0 +1,6 @@
+# Reproducible intermediate raster images; bitmaps are committed as C++ headers.
+/assets/raster/
+/assets/current/
+# Never commit runtime credentials or private location files.
+/secrets
+/location

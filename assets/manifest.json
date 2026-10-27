@@ -1,0 +1,4173 @@
+{
+  "format": "1-bpp; MSB first; row padded to bytes; black=1",
+  "current_visible_height": 48,
+  "assets": {
+    "clear-day/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        2,
+        14,
+        14
+      ]
+    },
+    "clear-night/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        3,
+        2,
+        14,
+        14
+      ]
+    },
+    "drizzle/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        3,
+        14,
+        14
+      ]
+    },
+    "fog/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        3,
+        14,
+        14
+      ]
+    },
+    "freezing-drizzle/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        3,
+        14,
+        14
+      ]
+    },
+    "freezing-rain/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        3,
+        14,
+        14
+      ]
+    },
+    "hail-thunderstorm/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        3,
+        14,
+        15
+      ]
+    },
+    "heavy-rain-showers/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        3,
+        1,
+        14,
+        14
+      ]
+    },
+    "heavy-rain/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        3,
+        14,
+        14
+      ]
+    },
+    "heavy-snow/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        3,
+        14,
+        14
+      ]
+    },
+    "heavy-thunderstorm/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        3,
+        14,
+        15
+      ]
+    },
+    "mainly-clear-day/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        1,
+        13,
+        13
+      ]
+    },
+    "mainly-clear-night/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        2,
+        13,
+        13
+      ]
+    },
+    "overcast/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        3,
+        14,
+        11
+      ]
+    },
+    "partly-cloudy-day/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        3,
+        1,
+        14,
+        12
+      ]
+    },
+    "partly-cloudy-night/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        3,
+        1,
+        14,
+        12
+      ]
+    },
+    "rain-showers-day/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        3,
+        1,
+        14,
+        14
+      ]
+    },
+    "rain-showers-night/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        3,
+        1,
+        14,
+        14
+      ]
+    },
+    "rain/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        3,
+        14,
+        14
+      ]
+    },
+    "rime-fog/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        3,
+        14,
+        14
+      ]
+    },
+    "snow-grains/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        3,
+        14,
+        14
+      ]
+    },
+    "snow-showers/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        3,
+        1,
+        14,
+        14
+      ]
+    },
+    "snow/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        3,
+        14,
+        14
+      ]
+    },
+    "thunderstorm/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        3,
+        14,
+        15
+      ]
+    },
+    "ui-back/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        3,
+        3,
+        13,
+        13
+      ]
+    },
+    "ui-battery-low/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        4,
+        14,
+        12
+      ]
+    },
+    "ui-battery/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        4,
+        14,
+        12
+      ]
+    },
+    "ui-clock/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        2,
+        14,
+        14
+      ]
+    },
+    "ui-confirm/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        3,
+        4,
+        13,
+        12
+      ]
+    },
+    "ui-down/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        4,
+        6,
+        12,
+        10
+      ]
+    },
+    "ui-menu/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        3,
+        4,
+        13,
+        12
+      ]
+    },
+    "ui-offline/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        2,
+        14,
+        14
+      ]
+    },
+    "ui-precipitation/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        3,
+        2,
+        13,
+        15
+      ]
+    },
+    "ui-refresh/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        3,
+        2,
+        13,
+        14
+      ]
+    },
+    "ui-sd-card/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        3,
+        2,
+        13,
+        14
+      ]
+    },
+    "ui-sunrise/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        2,
+        14,
+        14
+      ]
+    },
+    "ui-sunset/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        3,
+        14,
+        14
+      ]
+    },
+    "ui-temperature/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        5,
+        2,
+        12,
+        15
+      ]
+    },
+    "ui-up/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        4,
+        6,
+        12,
+        10
+      ]
+    },
+    "ui-uv/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        3,
+        2,
+        13,
+        14
+      ]
+    },
+    "ui-warning/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        2,
+        14,
+        14
+      ]
+    },
+    "ui-wifi/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        3,
+        14,
+        13
+      ]
+    },
+    "ui-wind/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        2,
+        15,
+        14
+      ]
+    },
+    "unknown/16": {
+      "width": 16,
+      "height": 16,
+      "ink_bounds": [
+        2,
+        2,
+        14,
+        14
+      ]
+    },
+    "clear-day/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        4,
+        4,
+        20,
+        20
+      ]
+    },
+    "clear-night/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        5,
+        3,
+        21,
+        20
+      ]
+    },
+    "drizzle/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        5,
+        21,
+        20
+      ]
+    },
+    "fog/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        5,
+        21,
+        22
+      ]
+    },
+    "freezing-drizzle/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        5,
+        21,
+        22
+      ]
+    },
+    "freezing-rain/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        5,
+        21,
+        22
+      ]
+    },
+    "hail-thunderstorm/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        5,
+        21,
+        22
+      ]
+    },
+    "heavy-rain-showers/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        2,
+        1,
+        20,
+        21
+      ]
+    },
+    "heavy-rain/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        5,
+        21,
+        21
+      ]
+    },
+    "heavy-snow/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        5,
+        21,
+        22
+      ]
+    },
+    "heavy-thunderstorm/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        5,
+        21,
+        22
+      ]
+    },
+    "mainly-clear-day/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        2,
+        20,
+        20
+      ]
+    },
+    "mainly-clear-night/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        2,
+        20,
+        20
+      ]
+    },
+    "overcast/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        5,
+        21,
+        17
+      ]
+    },
+    "partly-cloudy-day/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        2,
+        1,
+        20,
+        18
+      ]
+    },
+    "partly-cloudy-night/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        4,
+        2,
+        20,
+        18
+      ]
+    },
+    "rain-showers-day/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        2,
+        1,
+        20,
+        21
+      ]
+    },
+    "rain-showers-night/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        4,
+        2,
+        20,
+        21
+      ]
+    },
+    "rain/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        5,
+        21,
+        21
+      ]
+    },
+    "rime-fog/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        5,
+        21,
+        22
+      ]
+    },
+    "snow-grains/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        5,
+        21,
+        21
+      ]
+    },
+    "snow-showers/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        2,
+        1,
+        20,
+        22
+      ]
+    },
+    "snow/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        5,
+        21,
+        22
+      ]
+    },
+    "thunderstorm/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        5,
+        21,
+        22
+      ]
+    },
+    "ui-back/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        5,
+        5,
+        20,
+        19
+      ]
+    },
+    "ui-battery-low/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        2,
+        6,
+        22,
+        18
+      ]
+    },
+    "ui-battery/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        2,
+        6,
+        22,
+        18
+      ]
+    },
+    "ui-clock/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        3,
+        21,
+        21
+      ]
+    },
+    "ui-confirm/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        4,
+        6,
+        20,
+        18
+      ]
+    },
+    "ui-down/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        5,
+        8,
+        19,
+        16
+      ]
+    },
+    "ui-menu/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        4,
+        6,
+        20,
+        18
+      ]
+    },
+    "ui-offline/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        3,
+        21,
+        21
+      ]
+    },
+    "ui-precipitation/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        5,
+        3,
+        19,
+        22
+      ]
+    },
+    "ui-refresh/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        5,
+        3,
+        19,
+        21
+      ]
+    },
+    "ui-sd-card/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        5,
+        2,
+        19,
+        22
+      ]
+    },
+    "ui-sunrise/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        4,
+        21,
+        20
+      ]
+    },
+    "ui-sunset/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        4,
+        21,
+        20
+      ]
+    },
+    "ui-temperature/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        7,
+        2,
+        19,
+        23
+      ]
+    },
+    "ui-up/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        5,
+        8,
+        19,
+        16
+      ]
+    },
+    "ui-uv/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        4,
+        3,
+        20,
+        21
+      ]
+    },
+    "ui-warning/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        2,
+        3,
+        22,
+        21
+      ]
+    },
+    "ui-wifi/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        4,
+        21,
+        20
+      ]
+    },
+    "ui-wind/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        3,
+        22,
+        22
+      ]
+    },
+    "unknown/24": {
+      "width": 24,
+      "height": 24,
+      "ink_bounds": [
+        3,
+        3,
+        21,
+        21
+      ]
+    },
+    "clear-day/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        5,
+        5,
+        27,
+        27
+      ]
+    },
+    "clear-night/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        6,
+        4,
+        28,
+        27
+      ]
+    },
+    "drizzle/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        7,
+        28,
+        27
+      ]
+    },
+    "fog/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        7,
+        28,
+        29
+      ]
+    },
+    "freezing-drizzle/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        7,
+        28,
+        29
+      ]
+    },
+    "freezing-rain/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        7,
+        28,
+        29
+      ]
+    },
+    "hail-thunderstorm/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        7,
+        28,
+        30
+      ]
+    },
+    "heavy-rain-showers/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        3,
+        2,
+        27,
+        28
+      ]
+    },
+    "heavy-rain/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        7,
+        28,
+        28
+      ]
+    },
+    "heavy-snow/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        7,
+        28,
+        29
+      ]
+    },
+    "heavy-thunderstorm/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        7,
+        28,
+        30
+      ]
+    },
+    "mainly-clear-day/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        3,
+        26,
+        26
+      ]
+    },
+    "mainly-clear-night/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        5,
+        3,
+        26,
+        26
+      ]
+    },
+    "overcast/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        7,
+        28,
+        22
+      ]
+    },
+    "partly-cloudy-day/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        3,
+        2,
+        27,
+        23
+      ]
+    },
+    "partly-cloudy-night/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        5,
+        3,
+        27,
+        23
+      ]
+    },
+    "rain-showers-day/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        3,
+        2,
+        27,
+        28
+      ]
+    },
+    "rain-showers-night/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        5,
+        3,
+        27,
+        28
+      ]
+    },
+    "rain/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        7,
+        28,
+        28
+      ]
+    },
+    "rime-fog/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        7,
+        28,
+        29
+      ]
+    },
+    "snow-grains/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        7,
+        28,
+        27
+      ]
+    },
+    "snow-showers/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        3,
+        2,
+        27,
+        29
+      ]
+    },
+    "snow/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        7,
+        28,
+        29
+      ]
+    },
+    "thunderstorm/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        7,
+        28,
+        30
+      ]
+    },
+    "ui-back/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        6,
+        7,
+        27,
+        26
+      ]
+    },
+    "ui-battery-low/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        3,
+        9,
+        29,
+        23
+      ]
+    },
+    "ui-battery/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        3,
+        9,
+        29,
+        23
+      ]
+    },
+    "ui-clock/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        4,
+        28,
+        28
+      ]
+    },
+    "ui-confirm/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        5,
+        8,
+        27,
+        24
+      ]
+    },
+    "ui-down/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        7,
+        11,
+        25,
+        21
+      ]
+    },
+    "ui-menu/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        6,
+        8,
+        26,
+        24
+      ]
+    },
+    "ui-offline/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        4,
+        28,
+        28
+      ]
+    },
+    "ui-precipitation/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        7,
+        4,
+        25,
+        29
+      ]
+    },
+    "ui-refresh/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        6,
+        4,
+        26,
+        28
+      ]
+    },
+    "ui-sd-card/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        6,
+        3,
+        25,
+        29
+      ]
+    },
+    "ui-sunrise/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        5,
+        28,
+        27
+      ]
+    },
+    "ui-sunset/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        5,
+        28,
+        27
+      ]
+    },
+    "ui-temperature/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        10,
+        3,
+        25,
+        30
+      ]
+    },
+    "ui-up/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        7,
+        11,
+        25,
+        21
+      ]
+    },
+    "ui-uv/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        6,
+        4,
+        26,
+        28
+      ]
+    },
+    "ui-warning/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        3,
+        4,
+        29,
+        27
+      ]
+    },
+    "ui-wifi/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        6,
+        28,
+        27
+      ]
+    },
+    "ui-wind/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        4,
+        4,
+        29,
+        29
+      ]
+    },
+    "unknown/32": {
+      "width": 32,
+      "height": 32,
+      "ink_bounds": [
+        5,
+        5,
+        27,
+        27
+      ]
+    },
+    "clear-day/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        8,
+        8,
+        40,
+        40
+      ]
+    },
+    "clear-night/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        10,
+        6,
+        42,
+        40
+      ]
+    },
+    "drizzle/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        11,
+        43,
+        40
+      ]
+    },
+    "fog/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        11,
+        43,
+        43
+      ]
+    },
+    "freezing-drizzle/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        11,
+        43,
+        44
+      ]
+    },
+    "freezing-rain/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        11,
+        43,
+        44
+      ]
+    },
+    "hail-thunderstorm/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        11,
+        43,
+        45
+      ]
+    },
+    "heavy-rain-showers/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        5,
+        2,
+        40,
+        42
+      ]
+    },
+    "heavy-rain/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        11,
+        43,
+        42
+      ]
+    },
+    "heavy-snow/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        11,
+        43,
+        44
+      ]
+    },
+    "heavy-thunderstorm/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        11,
+        43,
+        45
+      ]
+    },
+    "mainly-clear-day/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        5,
+        39,
+        39
+      ]
+    },
+    "mainly-clear-night/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        7,
+        5,
+        39,
+        39
+      ]
+    },
+    "overcast/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        11,
+        43,
+        33
+      ]
+    },
+    "partly-cloudy-day/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        5,
+        2,
+        40,
+        35
+      ]
+    },
+    "partly-cloudy-night/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        8,
+        5,
+        40,
+        35
+      ]
+    },
+    "rain-showers-day/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        5,
+        2,
+        40,
+        42
+      ]
+    },
+    "rain-showers-night/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        8,
+        5,
+        40,
+        42
+      ]
+    },
+    "rain/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        11,
+        43,
+        42
+      ]
+    },
+    "rime-fog/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        11,
+        43,
+        44
+      ]
+    },
+    "snow-grains/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        11,
+        43,
+        41
+      ]
+    },
+    "snow-showers/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        5,
+        2,
+        40,
+        44
+      ]
+    },
+    "snow/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        11,
+        43,
+        44
+      ]
+    },
+    "thunderstorm/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        11,
+        43,
+        45
+      ]
+    },
+    "ui-back/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        9,
+        10,
+        40,
+        38
+      ]
+    },
+    "ui-battery-low/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        5,
+        13,
+        43,
+        35
+      ]
+    },
+    "ui-battery/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        5,
+        13,
+        43,
+        35
+      ]
+    },
+    "ui-clock/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        7,
+        7,
+        41,
+        41
+      ]
+    },
+    "ui-confirm/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        8,
+        13,
+        40,
+        36
+      ]
+    },
+    "ui-down/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        10,
+        17,
+        38,
+        31
+      ]
+    },
+    "ui-menu/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        9,
+        12,
+        39,
+        36
+      ]
+    },
+    "ui-offline/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        7,
+        42,
+        41
+      ]
+    },
+    "ui-precipitation/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        11,
+        6,
+        37,
+        44
+      ]
+    },
+    "ui-refresh/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        9,
+        6,
+        39,
+        42
+      ]
+    },
+    "ui-sd-card/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        10,
+        5,
+        38,
+        43
+      ]
+    },
+    "ui-sunrise/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        5,
+        7,
+        43,
+        40
+      ]
+    },
+    "ui-sunset/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        5,
+        7,
+        43,
+        40
+      ]
+    },
+    "ui-temperature/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        14,
+        5,
+        38,
+        45
+      ]
+    },
+    "ui-up/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        10,
+        17,
+        38,
+        31
+      ]
+    },
+    "ui-uv/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        9,
+        6,
+        39,
+        41
+      ]
+    },
+    "ui-warning/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        5,
+        6,
+        43,
+        41
+      ]
+    },
+    "ui-wifi/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        8,
+        42,
+        40
+      ]
+    },
+    "ui-wind/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        6,
+        7,
+        44,
+        43
+      ]
+    },
+    "unknown/48": {
+      "width": 48,
+      "height": 48,
+      "ink_bounds": [
+        7,
+        7,
+        41,
+        41
+      ]
+    },
+    "clear-day/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        11,
+        11,
+        53,
+        53
+      ]
+    },
+    "clear-night/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        13,
+        9,
+        56,
+        53
+      ]
+    },
+    "drizzle/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        15,
+        57,
+        54
+      ]
+    },
+    "fog/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        15,
+        57,
+        57
+      ]
+    },
+    "freezing-drizzle/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        15,
+        57,
+        59
+      ]
+    },
+    "freezing-rain/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        15,
+        57,
+        59
+      ]
+    },
+    "hail-thunderstorm/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        15,
+        57,
+        60
+      ]
+    },
+    "heavy-rain-showers/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        6,
+        3,
+        53,
+        56
+      ]
+    },
+    "heavy-rain/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        15,
+        57,
+        56
+      ]
+    },
+    "heavy-snow/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        15,
+        57,
+        59
+      ]
+    },
+    "heavy-thunderstorm/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        15,
+        57,
+        60
+      ]
+    },
+    "mainly-clear-day/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        6,
+        52,
+        52
+      ]
+    },
+    "mainly-clear-night/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        10,
+        7,
+        52,
+        52
+      ]
+    },
+    "overcast/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        15,
+        57,
+        44
+      ]
+    },
+    "partly-cloudy-day/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        6,
+        3,
+        53,
+        46
+      ]
+    },
+    "partly-cloudy-night/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        11,
+        6,
+        53,
+        46
+      ]
+    },
+    "rain-showers-day/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        6,
+        3,
+        53,
+        56
+      ]
+    },
+    "rain-showers-night/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        11,
+        6,
+        53,
+        56
+      ]
+    },
+    "rain/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        15,
+        57,
+        56
+      ]
+    },
+    "rime-fog/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        15,
+        57,
+        59
+      ]
+    },
+    "snow-grains/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        15,
+        57,
+        54
+      ]
+    },
+    "snow-showers/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        6,
+        3,
+        53,
+        59
+      ]
+    },
+    "snow/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        15,
+        57,
+        59
+      ]
+    },
+    "thunderstorm/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        15,
+        57,
+        60
+      ]
+    },
+    "ui-back/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        13,
+        13,
+        53,
+        51
+      ]
+    },
+    "ui-battery-low/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        7,
+        18,
+        57,
+        46
+      ]
+    },
+    "ui-battery/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        7,
+        18,
+        57,
+        46
+      ]
+    },
+    "ui-clock/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        9,
+        9,
+        55,
+        55
+      ]
+    },
+    "ui-confirm/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        11,
+        17,
+        53,
+        47
+      ]
+    },
+    "ui-down/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        13,
+        22,
+        51,
+        42
+      ]
+    },
+    "ui-menu/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        12,
+        17,
+        52,
+        47
+      ]
+    },
+    "ui-offline/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        9,
+        56,
+        55
+      ]
+    },
+    "ui-precipitation/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        14,
+        8,
+        50,
+        59
+      ]
+    },
+    "ui-refresh/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        13,
+        8,
+        51,
+        56
+      ]
+    },
+    "ui-sd-card/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        13,
+        7,
+        50,
+        57
+      ]
+    },
+    "ui-sunrise/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        7,
+        10,
+        57,
+        53
+      ]
+    },
+    "ui-sunset/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        7,
+        10,
+        57,
+        53
+      ]
+    },
+    "ui-temperature/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        19,
+        7,
+        51,
+        60
+      ]
+    },
+    "ui-up/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        13,
+        22,
+        51,
+        42
+      ]
+    },
+    "ui-uv/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        11,
+        8,
+        53,
+        55
+      ]
+    },
+    "ui-warning/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        6,
+        8,
+        58,
+        54
+      ]
+    },
+    "ui-wifi/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        11,
+        56,
+        53
+      ]
+    },
+    "ui-wind/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        8,
+        9,
+        58,
+        57
+      ]
+    },
+    "unknown/64": {
+      "width": 64,
+      "height": 64,
+      "ink_bounds": [
+        10,
+        10,
+        54,
+        54
+      ]
+    },
+    "clear-day/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        24,
+        0,
+        72,
+        48
+      ]
+    },
+    "clear-night/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        24,
+        0,
+        71,
+        48
+      ]
+    },
+    "drizzle/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        18,
+        0,
+        78,
+        48
+      ]
+    },
+    "fog/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        20,
+        0,
+        76,
+        48
+      ]
+    },
+    "freezing-drizzle/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        21,
+        0,
+        74,
+        48
+      ]
+    },
+    "freezing-rain/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        21,
+        0,
+        74,
+        48
+      ]
+    },
+    "hail-thunderstorm/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        22,
+        0,
+        74,
+        48
+      ]
+    },
+    "heavy-rain-showers/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        26,
+        0,
+        69,
+        48
+      ]
+    },
+    "heavy-rain/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        19,
+        0,
+        76,
+        48
+      ]
+    },
+    "heavy-snow/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        21,
+        0,
+        74,
+        48
+      ]
+    },
+    "heavy-thunderstorm/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        22,
+        0,
+        74,
+        48
+      ]
+    },
+    "mainly-clear-day/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        25,
+        0,
+        71,
+        48
+      ]
+    },
+    "mainly-clear-night/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        25,
+        0,
+        70,
+        48
+      ]
+    },
+    "overcast/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        7,
+        0,
+        88,
+        48
+      ]
+    },
+    "partly-cloudy-day/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        22,
+        0,
+        74,
+        48
+      ]
+    },
+    "partly-cloudy-night/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        23,
+        0,
+        73,
+        48
+      ]
+    },
+    "rain-showers-day/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        26,
+        0,
+        69,
+        48
+      ]
+    },
+    "rain-showers-night/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        28,
+        0,
+        68,
+        48
+      ]
+    },
+    "rain/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        19,
+        0,
+        76,
+        48
+      ]
+    },
+    "rime-fog/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        21,
+        0,
+        74,
+        48
+      ]
+    },
+    "snow-grains/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        18,
+        0,
+        78,
+        48
+      ]
+    },
+    "snow-showers/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        28,
+        0,
+        68,
+        48
+      ]
+    },
+    "snow/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        21,
+        0,
+        74,
+        48
+      ]
+    },
+    "thunderstorm/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        22,
+        0,
+        74,
+        48
+      ]
+    },
+    "unknown/current": {
+      "width": 96,
+      "height": 48,
+      "ink_bounds": [
+        24,
+        0,
+        72,
+        48
+      ]
+    }
+  },
+  "bitmaps": [
+    {
+      "name": "clear-day",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "clear-night",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "drizzle",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "fog",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "freezing-drizzle",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "freezing-rain",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "hail-thunderstorm",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "heavy-rain-showers",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "heavy-rain",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "heavy-snow",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "heavy-thunderstorm",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "mainly-clear-day",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "mainly-clear-night",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "overcast",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "partly-cloudy-day",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "partly-cloudy-night",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "rain-showers-day",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "rain-showers-night",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "rain",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "rime-fog",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "snow-grains",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "snow-showers",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "snow",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "thunderstorm",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-back",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-battery-low",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-battery",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-clock",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-confirm",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-down",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-menu",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-offline",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-precipitation",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-refresh",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-sd-card",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-sunrise",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-sunset",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-temperature",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-up",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-uv",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-warning",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-wifi",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "ui-wind",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "unknown",
+      "variant": "16",
+      "width": 16,
+      "height": 16,
+      "bytes": 32
+    },
+    {
+      "name": "clear-day",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "clear-night",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "drizzle",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "fog",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "freezing-drizzle",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "freezing-rain",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "hail-thunderstorm",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "heavy-rain-showers",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "heavy-rain",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "heavy-snow",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "heavy-thunderstorm",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "mainly-clear-day",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "mainly-clear-night",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "overcast",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "partly-cloudy-day",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "partly-cloudy-night",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "rain-showers-day",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "rain-showers-night",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "rain",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "rime-fog",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "snow-grains",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "snow-showers",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "snow",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "thunderstorm",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-back",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-battery-low",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-battery",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-clock",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-confirm",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-down",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-menu",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-offline",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-precipitation",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-refresh",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-sd-card",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-sunrise",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-sunset",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-temperature",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-up",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-uv",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-warning",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-wifi",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "ui-wind",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "unknown",
+      "variant": "24",
+      "width": 24,
+      "height": 24,
+      "bytes": 72
+    },
+    {
+      "name": "clear-day",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "clear-night",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "drizzle",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "fog",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "freezing-drizzle",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "freezing-rain",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "hail-thunderstorm",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "heavy-rain-showers",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "heavy-rain",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "heavy-snow",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "heavy-thunderstorm",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "mainly-clear-day",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "mainly-clear-night",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "overcast",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "partly-cloudy-day",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "partly-cloudy-night",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "rain-showers-day",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "rain-showers-night",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "rain",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "rime-fog",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "snow-grains",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "snow-showers",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "snow",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "thunderstorm",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-back",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-battery-low",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-battery",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-clock",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-confirm",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-down",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-menu",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-offline",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-precipitation",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-refresh",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-sd-card",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-sunrise",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-sunset",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-temperature",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-up",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-uv",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-warning",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-wifi",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "ui-wind",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "unknown",
+      "variant": "32",
+      "width": 32,
+      "height": 32,
+      "bytes": 128
+    },
+    {
+      "name": "clear-day",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "clear-night",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "drizzle",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "fog",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "freezing-drizzle",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "freezing-rain",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "hail-thunderstorm",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "heavy-rain-showers",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "heavy-rain",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "heavy-snow",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "heavy-thunderstorm",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "mainly-clear-day",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "mainly-clear-night",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "overcast",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "partly-cloudy-day",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "partly-cloudy-night",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "rain-showers-day",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "rain-showers-night",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "rain",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "rime-fog",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "snow-grains",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "snow-showers",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "snow",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "thunderstorm",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-back",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-battery-low",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-battery",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-clock",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-confirm",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-down",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-menu",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-offline",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-precipitation",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-refresh",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-sd-card",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-sunrise",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-sunset",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-temperature",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-up",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-uv",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-warning",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-wifi",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "ui-wind",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "unknown",
+      "variant": "48",
+      "width": 48,
+      "height": 48,
+      "bytes": 288
+    },
+    {
+      "name": "clear-day",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "clear-night",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "drizzle",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "fog",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "freezing-drizzle",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "freezing-rain",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "hail-thunderstorm",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "heavy-rain-showers",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "heavy-rain",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "heavy-snow",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "heavy-thunderstorm",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "mainly-clear-day",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "mainly-clear-night",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "overcast",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "partly-cloudy-day",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "partly-cloudy-night",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "rain-showers-day",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "rain-showers-night",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "rain",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "rime-fog",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "snow-grains",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "snow-showers",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "snow",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "thunderstorm",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-back",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-battery-low",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-battery",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-clock",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-confirm",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-down",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-menu",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-offline",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-precipitation",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-refresh",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-sd-card",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-sunrise",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-sunset",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-temperature",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-up",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-uv",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-warning",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-wifi",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "ui-wind",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "unknown",
+      "variant": "64",
+      "width": 64,
+      "height": 64,
+      "bytes": 512
+    },
+    {
+      "name": "clear-day",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "clear-night",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "drizzle",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "fog",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "freezing-drizzle",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "freezing-rain",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "hail-thunderstorm",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "heavy-rain-showers",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "heavy-rain",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "heavy-snow",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "heavy-thunderstorm",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "mainly-clear-day",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "mainly-clear-night",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "overcast",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "partly-cloudy-day",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "partly-cloudy-night",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "rain-showers-day",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "rain-showers-night",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "rain",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "rime-fog",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "snow-grains",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "snow-showers",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "snow",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "thunderstorm",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    },
+    {
+      "name": "unknown",
+      "variant": "current",
+      "width": 96,
+      "height": 48,
+      "bytes": 576
+    }
+  ]
+}
