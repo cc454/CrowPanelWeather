@@ -43,7 +43,6 @@ At one combined request per scheduled update, a 60-minute interval means 24 norm
 | R13 | Load/save configuration and cache using microSD; use an internal last-known-good copy so an absent card after successful setup does not stop operation. First startup without valid configuration gives a setup message. No hot-swap requirement. |
 | R14 | Menu, Exit and the up/down/press switch provide all ordinary interaction. Boot and Reset retain their hardware roles. No keyboard-style credential entry on the display. |
 | R15 | Support explicit USB and battery operating profiles; USB remains responsive, battery profile sleeps between updates. Wake and button responsiveness during sleep require verification on the actual board before being promised. |
-
 | R16 | Use a solid black header with white location and date text, inspired by Forecast first, and a large-temperature dashboard inspired by Big temperature. Develop readable three- and five-day outlook layouts. Target a current-condition symbol at least 64×64 pixels, with final sizing confirmed on the physical panel. Preserve a visible UV max, feels-like, High, Low, curve, provider attribution and freshness status. |
 
 ### Proposed configuration contract
