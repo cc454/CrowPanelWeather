@@ -2,10 +2,11 @@
 
 Weather forecast firmware for the **Elecrow CrowPanel ESP32-S3 4.2-inch, 400×300 monochrome e-paper HMI**. It uses Open-Meteo without an API key for personal, noncommercial use.
 
-Includes Classic three / Classic five views, physical-button menus, microSD setup, saved preferences, offline forecast caching, hourly updates and manual refresh. USB is the default profile; Battery adds scheduled deep sleep and Menu-button wake.
+Includes Classic three, Classic five and Large three views, physical-button menus, microSD setup, saved preferences, offline forecast caching, hourly updates and manual refresh. USB is the default profile; Battery adds scheduled deep sleep and Menu-button wake.
 
 ![Classic five rendered by the firmware](docs/classic-5.png)
 ![Classic three rendered by the firmware](docs/classic-3.png)
+![Large three rendered by the firmware](docs/large-3.png)
 
 These frames come from the actual renderer with sample forecast data. Both panel builds compile and native parser/renderer tests are included. **A physical board has not been flashed or tested in this project yet.** Panel appearance, SD compatibility, power consumption and wake behavior need the first hardware check.
 
@@ -109,7 +110,11 @@ It saves the validated setup internally and writes alternate forecast cache slot
 | Reset | Restart; preserve saved settings |
 | Boot | Hardware download-mode control |
 
-Select **Menu → Forecast view → Classic three / Classic five → press**. The confirmed choice survives restart and redraws cached data without fetching again or resetting the hourly schedule. Exit cancels. Menus return home after 30 seconds of inactivity.
+Select **Menu → Forecast view → Classic three / Classic five / Large three → press**. Up/down cycles the three options and Exit cancels. The confirmed choice survives restart and redraws cached data without fetching again or resetting the hourly schedule. Menus return home after 30 seconds of inactivity.
+
+**Large three** enlarges today's High, Low, UV max and Rain readings and the three forecast tiles. It has no footer: the black header shows the last successful sync, provider and update/stale/error status. Classic three/five retain their footer. Every layout includes today's Rain percentage, and its outlook starts tomorrow, reserving each consecutive local date even when weather data is missing.
+
+Existing `forecast_days: 3` or `5` settings remain supported. An optional `forecast_view` of `"classic_three"`, `"classic_five"` or `"large_three"` selects a specific layout and takes precedence over a valid `forecast_days`. For example, `{"forecast_view":"large_three","power_profile":"usb"}` selects Large three. Saved menu choices still take precedence until **Reload configuration** is selected.
 
 **Refresh** fetches between hourly updates. Repeated requests coalesce; manual fetches have a 60-second cooldown. Failures back off for 1, 5, then 15 minutes. Rate-limit/service-unavailable responses respect numeric or HTTP-date `Retry-After`, up to seven days.
 
@@ -124,7 +129,8 @@ After successful setup, the board can operate without the card using its interna
 - UV max is today's forecast maximum.
 - The graph covers the location's current day. Dotted lines every 5°C round outward to enclose the range; missing hours stay gaps. Local timezone rules support 23-/25-hour days. Very wide ranges retain every gridline but omit colliding interior labels.
 - Outlook days exclude today. They show daily high/low and maximum hourly precipitation probability, not rainfall volume.
-- The footer shows the last successful fetch. Failures do not advance it; data older than two hours is stale. Missing values show `--`.
+- The footer (Classic) or black header (Large three) shows the last successful fetch. Failures do not advance it; data older than two hours is stale. Missing values show `--`.
+- Rain % is the provider's daily maximum precipitation probability, which includes rain, showers and snow; it is not an instantaneous measurement or a rainfall amount.
 
 Weather data: [Open-Meteo](https://open-meteo.com/), attribution under CC BY 4.0. The free hosted endpoint is used here for noncommercial use. Alternate providers are not implemented.
 
@@ -149,6 +155,33 @@ The app does not automatically detect the power source or show an uncalibrated b
 | Old data remains | Check last-success time/status; e-paper retains an image without power |
 
 ## Development and validation
+
+### Display-only diagnosis
+
+The onboard CH340C USB bridge uses UART0 at 115200 baud. Native USB CDC at boot
+is disabled so application diagnostics appear on the same port as upload and ROM
+messages.
+
+Display test v2 corrects startup ordering: the green controller receives its
+initialization before waiting for BUSY; legacy uses its own 100/10/10 ms reset
+timing and waits before software reset. Both still have a 20-second refresh timeout.
+
+If the factory image remains after a successful upload, remove the microSD card
+with USB disconnected. Upload **Project Tasks → display_test_green → General →
+Upload**, then open that environment's **Monitor** and press Reset. The test uses
+software SPI, skips storage and networking, and attempts one full refresh of a
+bordered **DISPLAY TEST / GREEN** pattern. It logs reset, BUSY and refresh progress,
+then an `Alive` line every five seconds. `READY` only means the busy wait completed;
+check the actual screen. If the test stays unchanged, repeat with
+**display_test_legacy** and record the monitor output and whether either image
+appeared. An image with one test identifies a working driver/transport combination;
+failure with both does not by itself prove defective hardware. Re-upload the weather
+environment after testing. The test does not erase saved configuration.
+
+The app never formats the microSD card. Missing-card mount errors are expected
+without a card. `No core dump partition found` alone is not evidence of a crash.
+If a card also becomes unreadable on a computer, keep it out of the board and check
+with another reader before reusing it; back up readable files before formatting.
 
 ```sh
 pio run -e crowpanel_green -e crowpanel_legacy

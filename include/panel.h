@@ -8,6 +8,7 @@ public:
   void sleep();
 
 private:
+  void transfer(uint8_t value);
   void command(uint8_t value);
   void data(uint8_t value);
   void reg(uint8_t command, std::initializer_list<uint8_t> values);

@@ -13,18 +13,38 @@ void Panel::begin() {
   pinMode(DC, OUTPUT);
   pinMode(RST, OUTPUT);
   pinMode(BUSY_PIN, INPUT);
+#if CPW_PANEL_BITBANG
+  pinMode(12, OUTPUT);
+  pinMode(11, OUTPUT);
+  digitalWrite(12, LOW);
+#else
   SPI.begin(12, -1, 11, CS);
+#endif
+  delay(100);
+}
+void Panel::transfer(uint8_t value) {
+#if CPW_PANEL_BITBANG
+  for (int bit = 7; bit >= 0; --bit) {
+    digitalWrite(12, LOW);
+    digitalWrite(11, (value >> bit) & 1);
+    delayMicroseconds(1);
+    digitalWrite(12, HIGH);
+    delayMicroseconds(1);
+  }
+#else
+  SPI.transfer(value);
+#endif
 }
 void Panel::command(uint8_t value) {
   digitalWrite(DC, LOW);
   digitalWrite(CS, LOW);
-  SPI.transfer(value);
+  transfer(value);
   digitalWrite(CS, HIGH);
 }
 void Panel::data(uint8_t value) {
   digitalWrite(DC, HIGH);
   digitalWrite(CS, LOW);
-  SPI.transfer(value);
+  transfer(value);
   digitalWrite(CS, HIGH);
 }
 void Panel::reg(uint8_t cmd, std::initializer_list<uint8_t> values) {
@@ -35,8 +55,10 @@ void Panel::reg(uint8_t cmd, std::initializer_list<uint8_t> values) {
 bool Panel::ready() {
   uint32_t start = millis();
   while (digitalRead(BUSY_PIN)) {
-    if (millis() - start > 20000)
+    if (millis() - start > 20000) {
+      Serial.println("[display] BUSY stayed HIGH for 20 seconds");
       return false;
+    }
     delay(5);
   }
   return true;
@@ -46,24 +68,51 @@ void Panel::pixels(uint8_t cmd, const uint8_t *bits, bool blank) {
   digitalWrite(DC, HIGH);
   digitalWrite(CS, LOW);
   for (size_t i = 0; i < 15000; ++i) {
-    SPI.transfer(blank ? 0xff : uint8_t(~bits[i]));
+#if CPW_PANEL_BITBANG
+    data(blank ? 0xff : uint8_t(~bits[i]));
+#else
+    transfer(blank ? 0xff : uint8_t(~bits[i]));
+#endif
     if (i % 1024 == 0)
       yield();
   }
   digitalWrite(CS, HIGH);
 }
 bool Panel::show(const uint8_t *bits) {
+  if (!bits) {
+    Serial.println("[display] Framebuffer allocation failed");
+    return false;
+  }
+  Serial.printf("[display] Reset; BUSY=%d, power7=%d, power41=%d\n",
+                digitalRead(BUSY_PIN), digitalRead(7), digitalRead(41));
+#if !CPW_PANEL_BITBANG
   SPI.beginTransaction(SPISettings(4000000, MSBFIRST, SPI_MODE0));
+#endif
   digitalWrite(RST, HIGH);
+#if CPW_GREEN_PANEL
   delay(10);
   digitalWrite(RST, LOW);
   delay(100);
   digitalWrite(RST, HIGH);
   delay(100);
+#else
+  delay(100);
+  digitalWrite(RST, LOW);
+  delay(10);
+  digitalWrite(RST, HIGH);
+  delay(10);
+#endif
+#if !CPW_GREEN_PANEL
+  // Legacy controller is ready before its software reset. The green
+  // controller must receive initialization first, as in Elecrow's example.
   if (!ready()) {
+#if !CPW_PANEL_BITBANG
     SPI.endTransaction();
+#endif
     return false;
   }
+#endif
+  Serial.println("[display] Reset complete; sending registers and image");
 #if CPW_GREEN_PANEL
   reg(0x00, {0x3f, 0x4d});
   reg(0x01, {0x03, 0x10, 0x3f, 0x3f, 0x03});
@@ -74,6 +123,7 @@ bool Panel::show(const uint8_t *bits) {
   reg(0x50, {0x97});
   reg(0x60, {0x22});
   reg(0xe3, {0x88});
+  delay(300);
   pixels(0x10, bits, true);
   reg(0x50, {0xd7});
   pixels(0x13, bits);
@@ -93,7 +143,9 @@ bool Panel::show(const uint8_t *bits) {
   command(0x12);
   delay(10);
   if (!ready()) {
+#if !CPW_PANEL_BITBANG
     SPI.endTransaction();
+#endif
     return false;
   }
   reg(0x21, {0x40, 0});
@@ -109,17 +161,26 @@ bool Panel::show(const uint8_t *bits) {
   command(0x20);
 #endif
   delay(100);
+  Serial.printf("[display] Refresh sent; BUSY=%d\n", digitalRead(BUSY_PIN));
   bool ok = ready();
+#if !CPW_PANEL_BITBANG
   SPI.endTransaction();
+#endif
+  Serial.println(ok ? "[display] Refresh wait complete (check screen visually)"
+                    : "[display] Refresh timed out");
   return ok;
 }
 void Panel::sleep() {
+#if !CPW_PANEL_BITBANG
   SPI.beginTransaction(SPISettings(4000000, MSBFIRST, SPI_MODE0));
+#endif
 #if CPW_GREEN_PANEL
   reg(0x07, {0xa5});
 #else
   reg(0x10, {0x01});
 #endif
+#if !CPW_PANEL_BITBANG
   SPI.endTransaction();
+#endif
   delay(50);
 }

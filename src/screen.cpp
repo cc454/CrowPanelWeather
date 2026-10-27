@@ -1,6 +1,8 @@
 #include "screen.h"
 #include "icon_table.h"
 #include <Fonts/FreeSansBold24pt7b.h>
+#include <Fonts/FreeSansBold12pt7b.h>
+#include <Fonts/FreeSans9pt7b.h>
 #include <algorithm>
 #include <cstdio>
 #include <cstring>
@@ -146,12 +148,17 @@ void Screen::graph(const Weather &w, int64_t now) {
   }
 }
 void Screen::home(const Config &c, const Weather &w, const UI &ui, int64_t now) {
+  if (c.largeThree) {
+    largeHome(c, w, ui, now);
+    return;
+  }
   hero(w);
   text(12, 120, "Feels " + value(w.feels, true), 2, false, 188);
   auto day = today(w, now);
   text(12, 145,
        "High " + value(day ? day->high : NAN, true) + "  Low " + value(overnightLow(w, now), true));
   text(12, 167, "UV max " + value(day ? day->uv : NAN));
+  text(110, 167, "Rain " + value(day ? day->probability : NAN) + "%");
   frame.drawFastVLine(203, 37, 141, 1);
   graph(w, now);
   frame.drawFastHLine(10, 188, 380, 1);
@@ -192,6 +199,80 @@ void Screen::home(const Config &c, const Weather &w, const UI &ui, int64_t now) 
   text(5, 289, "Weather: Open-Meteo " + localTime(w.fetched, "%d/%m %H:%M"), 1, false, 210);
   text(222, 289, status.empty() ? "Hourly  Menu" : status, 1, false, 175);
 }
+int Screen::readable(int x, int y, const std::string &s, bool bold, bool white, int maxWidth) {
+  frame.setFont(bold ? &FreeSansBold12pt7b : &FreeSans9pt7b);
+  frame.setTextSize(1);
+  frame.setTextColor(white ? 0 : 1);
+  frame.setTextWrap(false);
+  std::string fitted = s;
+  int16_t bx, by;
+  uint16_t bw, bh;
+  while (true) {
+    frame.getTextBounds(fitted.c_str(), 0, 0, &bx, &by, &bw, &bh);
+    if (bw <= maxWidth || fitted.empty())
+      break;
+    fitted.pop_back();
+  }
+  frame.setCursor(x - bx, y - by);
+  frame.print(fitted.c_str());
+  return bw;
+}
+void Screen::largeValue(int x, int y, float n, bool degree) {
+  int width = readable(x, y, value(n), true);
+  if (degree && std::isfinite(n))
+    frame.drawCircle(x + width + 5, y + 3, 2, 1);
+}
+void Screen::largeHome(const Config &c, const Weather &w, const UI &ui, int64_t now) {
+  // Two header rows replace the footer; last sync changes only after success.
+  frame.fillRect(0, 0, 400, 32, 1);
+  readable(10, 4, c.label, false, true, 165);
+  text(214, 7, localTime(now, "%a %d %b %H:%M"), 1, true, 181);
+  std::string status = ui.busy ? "Updating" : ui.message;
+  if (status.empty() && now - w.fetched > 2 * Hour)
+    status = "STALE";
+  text(10, 22, status.empty() ? "Open-Meteo" : status, 1, true, 180);
+  text(214, 22, "Sync " + localTime(w.fetched, "%d/%m %H:%M"), 1, true, 181);
+  hero(w);
+  text(12, 119, "Feels " + value(w.feels, true), 2, false, 126);
+  auto day = today(w, now);
+  readable(145, 111, "Rain", false, false, 54);
+  readable(139, 130, value(day ? day->probability : NAN) + "%", true, false, 62);
+  readable(12, 148, "High");
+  readable(79, 148, "Low");
+  readable(141, 148, "UV max", false, false, 62);
+  largeValue(12, 166, day ? day->high : NAN, true);
+  largeValue(79, 166, overnightLow(w, now), true);
+  largeValue(145, 166, day ? day->uv : NAN);
+  frame.drawFastVLine(207, 37, 147, 1);
+  graph(w, now);
+  frame.drawFastHLine(10, 191, 380, 1);
+  const auto days = futureDays(w, now, 3);
+  for (int i = 0; i < 3; ++i) {
+    int x = 10 + i * 127;
+    if (i)
+      frame.drawFastVLine(x, 199, 96, 1);
+    if (ui.selectedDay == i)
+      frame.drawFastHLine(x + 8, 298, 110, 1);
+    const auto &d = days[i];
+    int yr, mo, da;
+    tm date{};
+    sscanf(d.date.c_str(), "%d-%d-%d", &yr, &mo, &da);
+    date.tm_year = yr - 1900;
+    date.tm_mon = mo - 1;
+    date.tm_mday = da;
+    date.tm_hour = 12;
+    date.tm_isdst = -1;
+    const auto label = localTime(mktime(&date), "%a %d");
+    readable(x + 25, 200, label, false, false, 100);
+    auto asset = findIcon(weatherIcon(d.code));
+    frame.drawBitmap(x + 3, 228, asset->largeForecast, 48, 48, 1);
+    text(x + 53, 225, "H");
+    largeValue(x + 66, 221, d.high, true);
+    text(x + 53, 254, "L");
+    largeValue(x + 66, 250, d.low, true);
+    readable(x + 45, 279, value(d.probability) + "%", true, false, 76);
+  }
+}
 bool Screen::draw(const Config &c, const Weather *w, const UI &ui, int64_t now) {
   frame.fillScreen(0);
   header(c, now);
@@ -213,7 +294,9 @@ bool Screen::draw(const Config &c, const Weather *w, const UI &ui, int64_t now) 
         frame.fillRect(8, y - 4, 384, 24, 1);
       std::string label = rows[i];
       if (i == 1)
-        label += c.forecastDays == 3 ? "  Classic three" : "  Classic five";
+        label += c.largeThree          ? "  Large three"
+                 : c.forecastDays == 3 ? "  Classic three"
+                                       : "  Classic five";
       if (i == 2)
         label += c.battery ? "  Battery" : "  USB";
       if (i == 3)
@@ -225,13 +308,15 @@ bool Screen::draw(const Config &c, const Weather *w, const UI &ui, int64_t now) 
   } else if (ui.view == View::ForecastChoice || ui.view == View::PowerChoice) {
     bool forecast = ui.view == View::ForecastChoice;
     text(12, 52, forecast ? "FORECAST VIEW" : "POWER PROFILE", 2);
-    for (int i = 0; i < 2; ++i) {
-      bool selected = forecast ? ui.pending == (i ? 5 : 3) : ui.pending == i;
-      int y = 106 + i * 44;
+    for (int i = 0; i < (forecast ? 3 : 2); ++i) {
+      bool selected = ui.pending == i;
+      int y = 94 + i * 42;
       if (selected)
         frame.fillRect(10, y - 6, 380, 32, 1);
       text(20, y,
-           forecast ? (i ? "Classic five" : "Classic three")
+           forecast ? (i == 2 ? "Large three"
+                       : i    ? "Classic five"
+                              : "Classic three")
                     : (i ? "Battery (sleep)" : "USB (awake)"),
            2, selected);
     }

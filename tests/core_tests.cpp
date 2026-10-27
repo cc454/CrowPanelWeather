@@ -66,6 +66,15 @@ int main(int argc, char **argv) {
   Config restored;
   CHECK(restoreConfig(configJson(c), restored, e));
   CHECK(configJson(c) == configJson(restored));
+  CHECK(parseConfig(secrets, location, R"({"forecast_view":"large_three"})", restored, e));
+  CHECK(restored.forecastDays == 3 && restored.largeThree);
+  Config largeRestored;
+  CHECK(restoreConfig(configJson(restored), largeRestored, e));
+  CHECK(largeRestored.largeThree && largeRestored.forecastDays == 3);
+  CHECK(parseConfig(secrets, location, R"({"forecast_view":"classic_five"})", restored, e));
+  CHECK(restored.forecastDays == 5 && !restored.largeThree);
+  CHECK(!parseConfig(secrets, location, R"({"forecast_view":"large_five"})", restored, e));
+  CHECK(!parseConfig(secrets, location, R"({"forecast_view":3})", restored, e));
   CHECK(requestUrl(c).find("forecast_days=7") != std::string::npos);
   CHECK(requestUrl(c).find("apikey") == std::string::npos);
   auto originalKey = locationKey(c);
@@ -104,6 +113,31 @@ int main(int argc, char **argv) {
   CHECK(futureDays(w, now, 5).size() == 5);
   CHECK(futureDays(w, now, 3).size() == 3);
   CHECK(futureDays(w, now, 5)[0].date == "2026-10-28");
+  CHECK(futureDays(w, now, 3).back().date == "2026-10-30");
+  CHECK(futureDays(w, now, 5).back().date == "2026-11-01");
+  auto absent = w;
+  absent.days.erase(absent.days.begin() + 2); // tomorrow missing
+  auto reserved = futureDays(absent, now, 3);
+  CHECK(reserved[0].date == "2026-10-28" && std::isnan(reserved[0].high));
+  CHECK(reserved[1].date == "2026-10-29");
+  // Fixed-offset local midnight differs from the UTC calendar date. Use a
+  // Windows-compatible TZ spelling here; DST is additionally checked on Linux.
+  Weather east;
+  east.posix = "EET-2";
+  CHECK(applyTimezone(east));
+  CHECK(localDate(1793138400) == "2026-10-28"); // 27 Oct 22:00 UTC
+  CHECK(futureDays(w, 1793138400, 3)[0].date == "2026-10-29");
+  CHECK(applyTimezone(w));
+  CHECK(futureDays(w, 1793145599, 3)[0].date == "2026-10-28");
+  CHECK(futureDays(w, 1793145600, 3)[0].date == "2026-10-29");
+  tm yearEnd{};
+  yearEnd.tm_year = 126;
+  yearEnd.tm_mon = 11;
+  yearEnd.tm_mday = 31;
+  yearEnd.tm_hour = 23;
+  auto nextYear = futureDays(w, mktime(&yearEnd), 3);
+  CHECK(nextYear.front().date == "2027-01-01" && nextYear.back().date == "2027-01-03");
+  CHECK(today(w, now) && today(w, now)->probability == 25);
   CHECK(overnightLow(w, now) == 7);
   CHECK(today(w, now) && today(w, now)->high == 16);
   auto missing = w;
@@ -119,6 +153,11 @@ int main(int argc, char **argv) {
   Weather nullable;
   CHECK(parseWeather(modified, now, nullable, e));
   CHECK(std::isnan(nullable.days[1].uv));
+  d["daily"]["precipitation_probability_max"][1] = nullptr;
+  modified.clear();
+  serializeJson(d, modified);
+  CHECK(parseWeather(modified, now, nullable, e));
+  CHECK(std::isnan(nullable.days[1].probability));
   d["hourly"]["temperature_2m"].remove(0);
   modified.clear();
   serializeJson(d, modified);
@@ -149,6 +188,9 @@ int main(int argc, char **argv) {
         hours.hours.push_back({pair.first - 86400 + i * 3600, 10});
       auto date = localDate(pair.first + 12 * 3600);
       CHECK(dayHours(hours, date).size() == size_t(pair.second));
+      auto outlook = futureDays(hours, pair.first + 12 * 3600, 3);
+      CHECK(outlook.front().date == (pair.second == 23 ? "2026-03-30" : "2026-10-26"));
+      CHECK(outlook.back().date == (pair.second == 23 ? "2026-04-01" : "2026-10-28"));
       CHECK(overnightLow(hours, pair.first + 3600) == 10);
       hours.hours[24].temperature = NAN;
       CHECK(std::isnan(overnightLow(hours, pair.first + 3600)));

@@ -137,7 +137,7 @@ static void key(int pin) {
       fetch(true);
       break;
     case 1:
-      ui.pending = config.forecastDays;
+      ui.pending = config.largeThree ? 2 : config.forecastDays == 3 ? 0 : 1;
       ui.view = View::ForecastChoice;
       break;
     case 2:
@@ -166,12 +166,13 @@ static void key(int pin) {
   } else if (ui.view == View::ForecastChoice || ui.view == View::PowerChoice) {
     bool isForecast = ui.view == View::ForecastChoice;
     if (movement)
-      ui.pending = isForecast ? (ui.pending == 3 ? 5 : 3) : !ui.pending;
+      ui.pending = isForecast ? (ui.pending + movement + 3) % 3 : !ui.pending;
     if (pin == 5) {
       auto c = config;
-      if (isForecast)
-        c.forecastDays = ui.pending;
-      else
+      if (isForecast) {
+        c.forecastDays = ui.pending == 1 ? 5 : 3;
+        c.largeThree = ui.pending == 2;
+      } else
         c.battery = ui.pending;
       if (persist(c)) {
         ui.selectedDay = 0;
@@ -203,6 +204,8 @@ static void pollButtons() {
 }
 void setup() {
   Serial.begin(115200);
+  delay(1000);
+  Serial.println("CrowPanelWeather: startup");
   setenv("TZ", "UTC0", 1);
   tzset();
   gpio_deep_sleep_hold_dis();
@@ -214,11 +217,17 @@ void setup() {
     b.last = b.stable = digitalRead(b.pin);
   }
   screen.begin();
+  Serial.println("[startup] Display power enabled; mounting storage");
   beginStorage();
+  Serial.printf("[startup] microSD: %s\n", cardAvailable() ? "available" : "unavailable");
   std::string setupMessage;
   configured = loadConfiguration(config, false, setupMessage);
+  Serial.printf("[startup] Configuration: %s\n", configured ? "loaded" : "missing");
+  Serial.println(setupMessage.c_str());
   if (configured) {
+    Serial.println("[startup] Reading weather cache");
     hasWeather = loadCache(config, weather);
+    Serial.printf("[startup] Cache: %s\n", hasWeather ? "loaded" : "empty");
     if (hasWeather)
       applyTimezone(weather);
   }
@@ -297,6 +306,7 @@ void loop() {
     redraw = true;
   }
   if (redraw) {
+    Serial.println("[display] Drawing screen");
     screen.draw(config, hasWeather ? &weather : nullptr, ui, clockNow());
     redraw = false;
   }

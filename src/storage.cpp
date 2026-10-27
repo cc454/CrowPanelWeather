@@ -45,6 +45,7 @@ bool loadConfiguration(Config &c, bool forceCard, std::string &message) {
   if (files && parseConfig(secret, location, settings, candidate, message)) {
     if (hasSaved && !forceCard) {
       candidate.forecastDays = saved.forecastDays;
+      candidate.largeThree = saved.largeThree;
       candidate.battery = saved.battery;
       candidate.sun = saved.sun;
       candidate.wind = saved.wind;

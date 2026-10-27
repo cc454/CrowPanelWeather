@@ -45,6 +45,19 @@ bool settingsFrom(JsonVariantConst d, Config &c, std::string &e) {
       return false;
     }
   }
+  if (!d["forecast_view"].isNull()) {
+    if (!d["forecast_view"].is<const char *>()) {
+      e = "settings: invalid forecast_view";
+      return false;
+    }
+    const std::string view = d["forecast_view"].as<std::string>();
+    if (view != "classic_three" && view != "classic_five" && view != "large_three") {
+      e = "settings: forecast_view must be classic_three, classic_five or large_three";
+      return false;
+    }
+    c.largeThree = view == "large_three";
+    c.forecastDays = view == "classic_five" ? 5 : 3;
+  }
   if (!d["power_profile"].isNull()) {
     if (!d["power_profile"].is<const char *>()) {
       e = "settings: invalid power_profile";
@@ -131,6 +144,9 @@ std::string configJson(const Config &c) {
   d["label"] = c.label;
   d["timezone"] = c.timezone;
   d["forecast_days"] = c.forecastDays;
+  d["forecast_view"] = c.largeThree          ? "large_three"
+                       : c.forecastDays == 3 ? "classic_three"
+                                             : "classic_five";
   d["power_profile"] = c.battery ? "battery" : "usb";
   d["show_sun_times"] = c.sun;
   d["show_wind"] = c.wind;
@@ -310,10 +326,28 @@ std::vector<Hourly> dayHours(const Weather &w, const std::string &date) {
 }
 std::vector<Daily> futureDays(const Weather &w, int64_t now, int count) {
   std::vector<Daily> r;
-  const auto date = localDate(now);
-  for (const auto &d : w.days)
-    if (d.date > date && int(r.size()) < count)
-      r.push_back(d);
+  if (now <= 0 || count <= 0)
+    return r;
+  time_t stamp = now;
+  tm date{};
+  localtime_r(&stamp, &date);
+  // Step calendar dates at local noon, not by 86400-second durations. Always
+  // reserve tomorrow's tile even when the provider is missing that day's data.
+  date.tm_hour = 12;
+  date.tm_min = date.tm_sec = 0;
+  for (int i = 0; i < count; ++i) {
+    ++date.tm_mday;
+    date.tm_isdst = -1;
+    stamp = mktime(&date);
+    Daily next;
+    next.date = localDate(stamp);
+    for (const auto &day : w.days)
+      if (day.date == next.date) {
+        next = day;
+        break;
+      }
+    r.push_back(next);
+  }
   return r;
 }
 float overnightLow(const Weather &w, int64_t now) {

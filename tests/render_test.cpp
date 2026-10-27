@@ -29,10 +29,18 @@ int main(int argc, char **argv) {
     out << "P4\n400 300\n";
     out.write((const char *)screen.buffer(), 15000);
   }
+  config.forecastDays = 3;
+  config.largeThree = true;
+  screen.draw(config, &weather, ui, weather.currentTime);
+  {
+    std::ofstream out("tests/build/large-3.pbm", std::ios::binary);
+    out << "P4\n400 300\n";
+    out.write((const char *)screen.buffer(), 15000);
+  }
   for (auto view :
        {cpw::View::Menu, cpw::View::ForecastChoice, cpw::View::Status, cpw::View::Details}) {
     ui.view = view;
-    ui.pending = 3;
+    ui.pending = 2;
     screen.draw(config, &weather, ui, weather.currentTime);
     std::ofstream out("tests/build/view-" + std::to_string(int(view)) + ".pbm", std::ios::binary);
     out << "P4\n400 300\n";
@@ -45,5 +53,12 @@ int main(int argc, char **argv) {
   std::ofstream out("tests/build/negative.pbm", std::ios::binary);
   out << "P4\n400 300\n";
   out.write((const char *)screen.buffer(), 15000);
-  std::cout << "Rendered both Classic views, menus/details, and negative temperature case\n";
+  weather.days[1].probability = 100;
+  weather.days[2].high = -100;
+  weather.days[2].low = -100;
+  screen.draw(config, &weather, ui, weather.currentTime);
+  std::ofstream edge("tests/build/large-3-extremes.pbm", std::ios::binary);
+  edge << "P4\n400 300\n";
+  edge.write((const char *)screen.buffer(), 15000);
+  std::cout << "Rendered all three views, menus/details, and extreme temperatures/rain\n";
 }

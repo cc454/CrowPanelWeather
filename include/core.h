@@ -13,7 +13,7 @@ struct Config {
   std::string ssid, password, label, timezone = "auto";
   double latitude = NAN, longitude = NAN;
   int forecastDays = 5;
-  bool battery = false, sun = false, wind = false;
+  bool battery = false, sun = false, wind = false, largeThree = false;
 };
 struct Hourly {
   int64_t time;

@@ -6,7 +6,7 @@ namespace cpw {
 enum class View { Home, Menu, ForecastChoice, PowerChoice, Details, Status };
 struct UI {
   View view = View::Home;
-  int focus = 0, selectedDay = 0, pending = 5;
+  int focus = 0, selectedDay = 0, pending = 1;
   bool busy = false;
   std::string message;
 };
@@ -27,6 +27,10 @@ private:
   void header(const Config &c, int64_t now);
   void home(const Config &c, const Weather &w, const UI &ui, int64_t now);
   void hero(const Weather &w);
+  void largeHome(const Config &c, const Weather &w, const UI &ui, int64_t now);
+  int readable(int x, int y, const std::string &s, bool bold = false, bool white = false,
+               int maxWidth = 390);
+  void largeValue(int x, int y, float value, bool degree = false);
   void graph(const Weather &w, int64_t now);
 };
 } // namespace cpw
