@@ -24,6 +24,10 @@ subprocess.run(compiler+['-std=c++17','-O0','-Itests/panel-stubs','-Iinclude',
                '-o',str(panel)],check=True)
 subprocess.run([str(panel)],check=True)
 base=compiler+['-std=c++17','-O0','-Iinclude','-I'+str(json_include)]
+storage=build/('storage-tests'+suffix)
+subprocess.run(base+['-Itests/storage-stubs','tests/storage_tests.cpp','src/storage.cpp',
+               'src/core.cpp','-o',str(storage)],check=True)
+subprocess.run([str(storage)],check=True)
 exe=build/('core-tests'+suffix)
 subprocess.run(base+['tests/core_tests.cpp','src/core.cpp','-o',str(exe)],check=True)
 subprocess.run([str(exe)]+([] if os.name=='nt' else ['--dst']),check=True)

@@ -120,6 +120,23 @@ Existing `forecast_days: 3` or `5` settings remain supported. An optional `forec
 
 Edit card files on your computer and reinsert before restarting. Credentials/location are read at boot; saved menu choices for view, power and optional fields take precedence over card settings. **Reload configuration** explicitly reapplies all card values. Invalid files retain the last-known-good configuration.
 
+**Replacing the setup card:** use root-level files named exactly `secrets` (plural)
+and `location`, without `.txt`. The location file's `label` is the displayed name;
+coordinates do not automatically rename it. UTF-8 files with or without a BOM are
+accepted. **Menu → Reload configuration** remounts the card before reading it and
+reports missing files, invalid JSON or mount failures in **Status / help**. A valid
+new location changes the header and cannot reuse another location's cached data.
+Changed Wi-Fi credentials trigger a new connection attempt. Status / help shows
+the active coordinates, and a fallback-to-saved-setup warning survives weather
+refreshes until configuration is successfully reloaded.
+
+**Header Wi-Fi icon:** normal = connected at the last update check; crossed out =
+disconnected; `?` = not checked yet. It is sampled when an existing weather-update
+attempt completes (startup, hourly, manual Refresh or an existing retry). There is
+no extra Wi-Fi polling or screen refresh for the icon. **Status / help** shows the
+check time. The symbol indicates Wi-Fi association, not successful internet/API
+access. Battery mode retains the last check while Wi-Fi is deliberately off asleep.
+
 After successful setup, the board can operate without the card using its internal configuration/cache. A location change never uses the old location's forecast. `cache-a`, `cache-b` and `cache-tmp` may appear on the card; leave them to the app. Alternate validated slots protect the previous cache against an interrupted write. A damaged internal cache filesystem may be reformatted automatically; NVS configuration is separate.
 
 ## Weather meanings
@@ -186,7 +203,7 @@ pio run -e crowpanel_green -e display_test_green
 python tools/test-native.py
 ```
 
-Native checks need a C++17 compiler (`g++` by default, or `--compiler "clang++"` / `--compiler "zig c++"`) and PlatformIO-installed libraries. Pillow optionally converts rendered PBM frames to PNG. Linux also tests DST transitions; Windows skips those cases because its C runtime does not fully implement POSIX transition expressions. ESP32/newlib uses POSIX timezone support.
+Native checks need a C++17 compiler (`g++` by default, or `--compiler "clang++"` / `--compiler "zig c++"`) and PlatformIO-installed libraries. Storage regression checks simulate a replacement card after startup, filename errors, saved fallback and cross-location cache isolation; physical card compatibility still needs a board test. Pillow optionally converts rendered PBM frames to PNG. Linux also tests DST transitions; Windows skips those cases because its C runtime does not fully implement POSIX transition expressions. ESP32/newlib uses POSIX timezone support.
 
 The committed forecast fixture keeps tests offline. Intentionally update it with `python tools/fetch-fixture.py`. `tools/update-resources.py` refreshes the verified API trust anchor and IANA/POSIX table; ordinary builds need neither script. GitHub Actions compiles the green weather app and standalone display test, runs native checks and uploads firmware parts/rendered frames.
 

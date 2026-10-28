@@ -19,6 +19,8 @@ RTC_DATA_ATTR static unsigned failures = 0;
 RTC_DATA_ATTR static uint32_t rtcMagic = 0;
 RTC_DATA_ATTR static int64_t rtcScheduled = 0, rtcRetry = 0;
 RTC_DATA_ATTR static int64_t rtcLastManual = 0;
+RTC_DATA_ATTR static int rtcWifiState = 0;
+RTC_DATA_ATTR static int64_t rtcWifiCheckedAt = 0;
 static constexpr uint32_t Magic = 0x43505731;
 static constexpr uint32_t HourMs = 3600000;
 static bool reached(uint32_t value) { return int32_t(millis() - value) >= 0; }
@@ -88,23 +90,38 @@ static void reload() {
   Config candidate;
   std::string error;
   if (!loadConfiguration(candidate, true, error)) {
+    ui.configIssue = error;
+    ui.view = View::Status;
     message(error);
     return;
   }
   bool changed = !configured || locationKey(candidate) != locationKey(config);
+  bool credentialsChanged =
+      !configured || candidate.ssid != config.ssid || candidate.password != config.password;
   config = candidate;
   configured = true;
+  ui.configIssue.clear();
   ui.selectedDay = 0;
   if (changed) {
     hasWeather = loadCache(config, weather);
     if (hasWeather)
       applyTimezone(weather);
+  }
+  if (changed || credentialsChanged) {
     retryPending = false;
     failures = 0;
   }
+  if (credentialsChanged) {
+    ui.wifi = WifiState::Unknown;
+    ui.wifiCheckedAt = 0;
+    rtcWifiState = static_cast<int>(WifiState::Unknown);
+    rtcWifiCheckedAt = 0;
+  }
   ui.view = View::Home;
   message("Configuration reloaded");
-  if (changed)
+  Serial.printf("[setup] Loaded microSD location: %s (%.6f, %.6f)\n", config.label.c_str(),
+                config.latitude, config.longitude);
+  if (changed || credentialsChanged)
     fetch(false);
 }
 static void key(int pin) {
@@ -232,11 +249,19 @@ void setup() {
       applyTimezone(weather);
   }
   ui.message = setupMessage;
+  ui.configIssue = setupMessage;
+  if (configured)
+    Serial.printf("[setup] Selected location: %s (%.6f, %.6f)\n", config.label.c_str(),
+                  config.latitude, config.longitude);
   auto wake = esp_sleep_get_wakeup_cause();
   int64_t now = time(nullptr);
   bool resume = rtcMagic == Magic &&
                 (wake == ESP_SLEEP_WAKEUP_TIMER || wake == ESP_SLEEP_WAKEUP_EXT0) &&
                 now > 1700000000;
+  if (resume) {
+    ui.wifi = static_cast<WifiState>(rtcWifiState);
+    ui.wifiCheckedAt = rtcWifiCheckedAt;
+  }
   nextScheduled =
       millis() +
       uint32_t(resume ? std::max<int64_t>(0, std::min<int64_t>(Hour, rtcScheduled - now)) * 1000
@@ -265,6 +290,12 @@ void loop() {
   std::unique_ptr<FetchResult> result(pollFetch());
   if (result) {
     ui.busy = false;
+    ui.wifi = result->wifiConnected ? WifiState::Connected : WifiState::Disconnected;
+    ui.wifiCheckedAt = time(nullptr) > 1700000000 ? time(nullptr) : 0;
+    rtcWifiState = static_cast<int>(ui.wifi);
+    rtcWifiCheckedAt = ui.wifiCheckedAt;
+    Serial.println(result->wifiConnected ? "[Wi-Fi] Connected at update check"
+                                         : "[Wi-Fi] Disconnected at update check");
     std::string error = result->error;
     Weather candidate;
     if (error.empty() && !parseWeather(result->raw, result->fetched, candidate, error))

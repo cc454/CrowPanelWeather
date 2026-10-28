@@ -53,6 +53,7 @@ int main(int argc, char **argv) {
       R"({"latitude":47.3769,"longitude":8.5417,"label":"Zurich","timezone":"auto"})";
   CHECK(parseConfig(secrets, location, "", c, e));
   CHECK(c.forecastDays == 5 && !c.battery);
+  CHECK(parseConfig("\xef\xbb\xbf" + secrets, "\xef\xbb\xbf" + location, "", c, e));
   CHECK(!parseConfig(secrets, location, R"({"forecast_days":4})", c, e));
   CHECK(!parseConfig(secrets, R"({"latitude":91,"longitude":8})", "", c, e));
   CHECK(!parseConfig(secrets, R"({"latitude":"47","longitude":8})", "", c, e));

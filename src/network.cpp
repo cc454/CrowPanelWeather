@@ -10,14 +10,21 @@
 namespace cpw {
 static QueueHandle_t results = nullptr;
 static bool running = false;
+static std::string appliedSsid, appliedPassword;
 static void fetchTask(void *argument) {
   std::unique_ptr<Config> c(static_cast<Config *>(argument));
   auto *result = new FetchResult();
   WiFi.persistent(false);
   WiFi.mode(WIFI_STA);
   WiFi.setAutoReconnect(true);
-  if (WiFi.status() != WL_CONNECTED)
+  const bool credentialsChanged = c->ssid != appliedSsid || c->password != appliedPassword;
+  if (credentialsChanged || WiFi.status() != WL_CONNECTED || WiFi.SSID() != c->ssid.c_str()) {
+    if (credentialsChanged)
+      WiFi.disconnect(false, false);
     WiFi.begin(c->ssid.c_str(), c->password.c_str());
+    appliedSsid = c->ssid;
+    appliedPassword = c->password;
+  }
   uint32_t started = millis();
   while (WiFi.status() != WL_CONNECTED && millis() - started < 25000)
     vTaskDelay(pdMS_TO_TICKS(100));
@@ -94,6 +101,7 @@ static void fetchTask(void *argument) {
   }
   if (!result->error.empty())
     result->raw.clear();
+  result->wifiConnected = WiFi.status() == WL_CONNECTED;
   xQueueSend(results, &result, portMAX_DELAY);
   vTaskDelete(nullptr);
 }

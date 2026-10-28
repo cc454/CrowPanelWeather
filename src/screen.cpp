@@ -1,5 +1,6 @@
 #include "screen.h"
 #include "icon_table.h"
+#include "assets/include/icons_16.h"
 #include <Fonts/FreeSansBold24pt7b.h>
 #include <Fonts/FreeSansBold12pt7b.h>
 #include <Fonts/FreeSans9pt7b.h>
@@ -39,11 +40,30 @@ void Screen::text(int x, int y, const std::string &raw, int scale, bool white, i
 void Screen::centered(int x, int y, const std::string &s, int scale) {
   text(x - int(s.size()) * 3 * scale, y, s, scale, false, 400);
 }
-void Screen::header(const Config &c, int64_t now) {
+void Screen::wifiIcon(int x, WifiState state) {
+  frame.drawBitmap(x, 6, cpw_assets::ui_wifi_16, 16, 16, 0);
+  if (state == WifiState::Disconnected) {
+    frame.drawLine(x, 21, x + 15, 6, 1);
+    frame.drawLine(x + 1, 21, x + 16, 6, 0);
+  } else if (state == WifiState::Unknown) {
+    frame.fillRect(x + 10, 4, 8, 9, 1);
+    text(x + 11, 5, "?", 1, true, 6);
+  }
+}
+void Screen::header(const Config &c, const Weather *w, const UI &ui, int64_t now) {
   frame.fillRect(0, 0, 400, 28, 1);
-  text(10, 10, c.label, 1, true, 174);
-  auto right = localTime(now, "%a %d %b %H:%M");
-  text(390 - int(right.size()) * 6, 10, right, 1, true, 200);
+  const std::string right = c.largeThree
+                                ? "Open-Meteo, " + localTime(now, "%d/%m") + " (Sync " +
+                                      (w ? localTime(w->fetched, "%d/%m %H:%M") : "--") + ")"
+                                : localTime(now, "%a %d %b %H:%M");
+  const int infoX = 390 - int(right.size()) * 6;
+  const int iconX = infoX - 25;
+  if (c.largeThree)
+    readable(10, 8, c.label, false, true, iconX - 20);
+  else
+    text(10, 10, c.label, 1, true, iconX - 20);
+  wifiIcon(iconX, ui.wifi);
+  text(infoX, c.largeThree ? 11 : 10, right, 1, true, 390 - infoX);
 }
 void Screen::hero(const Weather &w) {
   text(12, 36, weatherLabel(w.code), 1, false, 188);
@@ -190,6 +210,8 @@ void Screen::home(const Config &c, const Weather &w, const UI &ui, int64_t now) 
   }
   frame.drawFastHLine(0, 282, 400, 1);
   std::string status = ui.message;
+  if (status.empty())
+    status = ui.configIssue;
   if (status.empty() && now - w.fetched > 2 * Hour)
     status = "STALE";
   if (ui.busy)
@@ -221,14 +243,9 @@ void Screen::largeValue(int x, int y, float n, bool degree) {
     frame.drawCircle(x + width + 5, y + 3, 2, 1);
 }
 void Screen::largeHome(const Config &c, const Weather &w, const UI &ui, int64_t now) {
-  // One header line: location left, provider/date and successful sync right.
-  frame.fillRect(0, 0, 400, 28, 1);
-  const std::string info = "Open-Meteo, " + localTime(now, "%d/%m") + " (Sync " +
-                           localTime(w.fetched, "%d/%m %H:%M") + ")";
-  const int infoX = 390 - int(info.size()) * 6;
-  readable(10, 8, c.label, false, true, infoX - 22);
-  text(infoX, 11, info, 1, true, 390 - infoX);
   std::string status = ui.busy ? "Updating" : ui.message;
+  if (status.empty())
+    status = ui.configIssue;
   if (status.empty() && now - w.fetched > 2 * Hour)
     status = "STALE";
   hero(w);
@@ -278,13 +295,15 @@ void Screen::largeHome(const Config &c, const Weather &w, const UI &ui, int64_t 
 }
 bool Screen::draw(const Config &c, const Weather *w, const UI &ui, int64_t now) {
   frame.fillScreen(0);
-  header(c, now);
+  header(c, w, ui, now);
   if (ui.view == View::Home && w)
     home(c, *w, ui, now);
   else if (ui.view == View::Home) {
     text(12, 60, "No weather data", 2);
     text(12, 100, ui.message, 1, false, 376);
-    text(12, 135, "Add secrets and location to microSD.");
+    text(12, 135,
+         c.ssid.empty() ? "Add secrets and location to microSD."
+                        : "Menu > Refresh to fetch weather.");
     text(12, 155, "Menu > Reload configuration");
   } else if (ui.view == View::Menu) {
     text(12, 42, "MENU", 2);
@@ -350,14 +369,21 @@ bool Screen::draw(const Config &c, const Weather *w, const UI &ui, int64_t now) 
     text(12, 119, "Automatic refresh: 60 minutes");
     text(12, 140, std::string("Power: ") + (c.battery ? "battery" : "USB"));
     text(12, 161, "Last success: " + (w ? localTime(w->fetched, "%d/%m %H:%M") : "none"));
-    text(12, 182, "Low: overnight 18:00 to 06:00");
-    text(12, 203, w ? w->timezone : "Timezone pending");
-    text(12, 225, ui.message, 1, false, 376);
-    text(12, 263, "Exit returns. Boot/Reset: hardware.");
+    const char *wifi = ui.wifi == WifiState::Connected      ? "connected"
+                       : ui.wifi == WifiState::Disconnected ? "disconnected"
+                                                            : "not checked";
+    text(12, 182, std::string("Wi-Fi: ") + wifi + " (last update check)");
+    text(12, 203, "Wi-Fi checked: " + localTime(ui.wifiCheckedAt, "%d/%m %H:%M"));
+    char coordinates[64];
+    snprintf(coordinates, sizeof(coordinates), "Location: %.6f, %.6f", c.latitude, c.longitude);
+    text(12, 222, coordinates);
+    text(12, 238, ui.configIssue, 1, false, 376);
+    text(12, 250, ui.message == ui.configIssue ? "" : ui.message, 1, false, 376);
+    text(12, 276, "Exit returns. Boot/Reset: hardware.");
   }
   bool ok = panel.show(frame.getBuffer());
   if (!ok)
-    Serial.println("Display busy timeout: check panel build revision");
+    Serial.println("Display busy timeout: check panel connection and supply");
   return ok;
 }
 } // namespace cpw

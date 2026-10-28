@@ -21,7 +21,9 @@ static int setenv(const char *key, const char *value, int) { return _putenv_s(ke
 namespace cpw {
 namespace {
 bool doc(const std::string &raw, JsonDocument &d, const char *file, std::string &error) {
-  if (raw.size() > MaxResponse || deserializeJson(d, raw) || !d.is<JsonObject>()) {
+  const size_t start = raw.compare(0, 3, "\xef\xbb\xbf") == 0 ? 3 : 0;
+  if (raw.size() > MaxResponse || deserializeJson(d, raw.data() + start, raw.size() - start) ||
+      !d.is<JsonObject>()) {
     error = std::string(file) + ": invalid JSON object";
     return false;
   }

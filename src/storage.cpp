@@ -9,22 +9,45 @@ static Preferences preferences;
 static SPIClass cardSPI(HSPI);
 static bool sdReady = false, fsReady = false, nvsReady = false;
 static int newestSlot = 0;
+static bool mountCard() {
+  SD.end();
+  cardSPI.end();
+  cardSPI.begin(39, 13, 40, 10);
+  sdReady = SD.begin(10, cardSPI, 4000000);
+  return sdReady;
+}
 bool beginStorage() {
   nvsReady = preferences.begin("crowweather", false);
   fsReady = LittleFS.begin(true);
-  cardSPI.begin(39, 13, 40, 10);
-  sdReady = SD.begin(10, cardSPI, 4000000);
+  mountCard();
   return nvsReady;
 }
 bool cardAvailable() { return sdReady; }
-static bool readCard(const char *name, std::string &result, bool optional = false) {
+static bool readCard(const char *name, std::string &result, std::string &error,
+                     bool optional = false) {
+  if (!SD.exists(name)) {
+    result.clear();
+    if (optional)
+      return true;
+    const std::string filename = std::string(name).substr(1);
+    if (SD.exists((std::string(name) + ".txt").c_str()))
+      error = "microSD: rename " + filename + ".txt to " + filename;
+    else if (filename == "secrets" && SD.exists("/secret"))
+      error = "microSD: rename secret to secrets (plural)";
+    else
+      error = "microSD: missing /" + filename + " in card root";
+    return false;
+  }
   File f = SD.open(name, FILE_READ);
   if (!f) {
     result.clear();
-    return optional;
-  }
-  if (f.size() > 2048)
+    error = "microSD: cannot read " + std::string(name);
     return false;
+  }
+  if (f.size() > 2048) {
+    error = "microSD: " + std::string(name) + " exceeds 2048 bytes";
+    return false;
+  }
   result = f.readString().c_str();
   return true;
 }
@@ -35,13 +58,19 @@ bool saveConfiguration(const Config &c) {
   return preferences.putString("config", raw.c_str()) == raw.size();
 }
 bool loadConfiguration(Config &c, bool forceCard, std::string &message) {
+  message.clear();
+  if (forceCard)
+    mountCard();
   Config saved, candidate;
   std::string ignored;
   bool hasSaved =
       nvsReady && restoreConfig(preferences.getString("config", "").c_str(), saved, ignored);
   std::string secret, location, settings;
-  bool files = sdReady && readCard("/secrets", secret) && readCard("/location", location) &&
-               readCard("/settings", settings, true);
+  if (!sdReady)
+    message = "microSD: mount failed; reinsert card and Reload";
+  bool files = sdReady && readCard("/secrets", secret, message) &&
+               readCard("/location", location, message) &&
+               readCard("/settings", settings, message, true);
   if (files && parseConfig(secret, location, settings, candidate, message)) {
     if (hasSaved && !forceCard) {
       candidate.forecastDays = saved.forecastDays;
