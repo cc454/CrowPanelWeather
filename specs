@@ -40,6 +40,19 @@ and retains its image when power is removed.
 | CS (chip select) | 45 |
 | BUSY | 48 |
 
+## microSD GPIO mapping
+
+| Signal | ESP32-S3 GPIO |
+| --- | --- |
+| SCK | 39 |
+| MISO | 13 |
+| MOSI | 40 |
+| CS | 10 |
+| Slot power enable | 42 (HIGH) |
+
+Enable GPIO42 and wait at least 10 ms before initializing the SD SPI bus and
+mounting the card, as in Elecrow's official TF-card example.
+
 ## Integration notes
 
 - The voltage range above is explicitly labeled as the display operating
@@ -54,3 +67,5 @@ and retains its image when power is removed.
 
 - [Elecrow hardware specifications and pin definitions](https://github.com/Elecrow-RD/CrowPanel-ESP32-4.2-E-paper-HMI-Display-with-400-300)
 - [Elecrow product page](https://www.elecrow.com/crowpanel-esp32-4-2-e-paper-hmi-display-with-400-300-resolution-black-white-color-driven-by-spi-interface.html)
+
+- [Elecrow SD slot power and SPI example](https://github.com/Elecrow-RD/CrowPanel-ESP32-4.2-E-paper-HMI-Display-with-400-300/blob/master/example/arduino/Examples/4.2_TF/4.2_TF.ino)

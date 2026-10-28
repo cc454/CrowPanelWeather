@@ -1,4 +1,5 @@
 #include "storage.h"
+#include <Arduino.h>
 #include <LittleFS.h>
 #include <Preferences.h>
 #include <SD.h>
@@ -12,8 +13,14 @@ static int newestSlot = 0;
 static bool mountCard() {
   SD.end();
   cardSPI.end();
+  // Elecrow's slot has a switched ground/power path controlled by GPIO42.
+  pinMode(42, OUTPUT);
+  digitalWrite(42, HIGH);
+  delay(10);
+  Serial.println("[microSD] Slot power enabled (GPIO42)");
   cardSPI.begin(39, 13, 40, 10);
   sdReady = SD.begin(10, cardSPI, 4000000);
+  Serial.println(sdReady ? "[microSD] Mounted" : "[microSD] Mount failed");
   return sdReady;
 }
 bool beginStorage() {

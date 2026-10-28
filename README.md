@@ -193,6 +193,11 @@ and verify the board model, USB supply and display connection. A failed test alo
 does not establish defective hardware. Re-upload **crowpanel_green** after testing.
 The test does not erase saved configuration.
 
+The SD slot requires GPIO42 HIGH before mounting. Startup should report
+`[microSD] Slot power enabled (GPIO42)` followed by `[microSD] Mounted`.
+If Status reports a mount failure, the app uses saved configuration and cannot
+read a new location; upload the current firmware before retrying Reload configuration.
+
 The app never formats the microSD card. Missing-card mount errors are expected
 without a card. `No core dump partition found` alone is not evidence of a crash.
 If a card also becomes unreadable on a computer, keep it out of the board and check
@@ -203,7 +208,7 @@ pio run -e crowpanel_green -e display_test_green
 python tools/test-native.py
 ```
 
-Native checks need a C++17 compiler (`g++` by default, or `--compiler "clang++"` / `--compiler "zig c++"`) and PlatformIO-installed libraries. Storage regression checks simulate a replacement card after startup, filename errors, saved fallback and cross-location cache isolation; physical card compatibility still needs a board test. Pillow optionally converts rendered PBM frames to PNG. Linux also tests DST transitions; Windows skips those cases because its C runtime does not fully implement POSIX transition expressions. ESP32/newlib uses POSIX timezone support.
+Native checks need a C++17 compiler (`g++` by default, or `--compiler "clang++"` / `--compiler "zig c++"`) and PlatformIO-installed libraries. Storage regression checks require slot power and its startup delay, and simulate a replacement card after startup, filename errors, saved fallback and cross-location cache isolation; physical card compatibility still needs a board test. Pillow optionally converts rendered PBM frames to PNG. Linux also tests DST transitions; Windows skips those cases because its C runtime does not fully implement POSIX transition expressions. ESP32/newlib uses POSIX timezone support.
 
 The committed forecast fixture keeps tests offline. Intentionally update it with `python tools/fetch-fixture.py`. `tools/update-resources.py` refreshes the verified API trust anchor and IANA/POSIX table; ordinary builds need neither script. GitHub Actions compiles the green weather app and standalone display test, runs native checks and uploads firmware parts/rendered frames.
 

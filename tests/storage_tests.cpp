@@ -15,6 +15,8 @@ int main() {
   assert(parseConfig(secret, original, R"({"forecast_view":"large_three"})", saved, error));
   storage_test::preferences["config"] = configJson(saved);
   assert(beginStorage());
+  assert(storage_test::pins[42] == HIGH);
+  assert(storage_test::clock - storage_test::powerEnabledAt >= 10);
   assert(!cardAvailable());
   assert(loadConfiguration(active, false, error));
   assert(active.label == "Zurich" && error.find("mount failed") != std::string::npos);
