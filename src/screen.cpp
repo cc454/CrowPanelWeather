@@ -167,8 +167,6 @@ void Screen::home(const Config &c, const Weather &w, const UI &ui, int64_t now) 
     int x = 10 + (i * 380) / c.forecastDays, width = 380 / c.forecastDays, center = x + width / 2;
     if (i)
       frame.drawFastVLine(x, 196, 81, 1);
-    if (ui.selectedDay == i)
-      frame.drawFastHLine(x + 8, 278, width - 16, 1);
     if (i >= int(days.size())) {
       centered(center, 201, "--");
       centered(center, 247, "No data");
@@ -235,14 +233,12 @@ void Screen::largeHome(const Config &c, const Weather &w, const UI &ui, int64_t 
   hero(w);
   text(12, 119, "Feels " + value(w.feels, true), 2, false, 126);
   auto day = today(w, now);
-  readable(145, 111, "Rain", false, false, 54);
-  readable(139, 130, value(day ? day->probability : NAN) + "%", true, false, 62);
   readable(12, 148, "High");
-  readable(79, 148, "Low");
-  readable(141, 148, "UV max", false, false, 62);
+  readable(75, 148, "Low");
+  readable(141, 148, "Rain", false, false, 62);
   largeValue(12, 166, day ? day->high : NAN, true);
-  largeValue(79, 166, overnightLow(w, now), true);
-  largeValue(145, 166, day ? day->uv : NAN);
+  largeValue(75, 166, overnightLow(w, now), true);
+  readable(136, 166, value(day ? day->probability : NAN) + "%", true, false, 65);
   frame.drawFastVLine(207, 37, 147, 1);
   graph(w, now);
   frame.drawFastHLine(10, 191, 380, 1);
@@ -251,8 +247,6 @@ void Screen::largeHome(const Config &c, const Weather &w, const UI &ui, int64_t 
     int x = 10 + i * 127;
     if (i)
       frame.drawFastVLine(x, 199, 96, 1);
-    if (ui.selectedDay == i)
-      frame.drawFastHLine(x + 8, 298, 110, 1);
     const auto &d = days[i];
     int yr, mo, da;
     tm date{};
@@ -266,10 +260,10 @@ void Screen::largeHome(const Config &c, const Weather &w, const UI &ui, int64_t 
     readable(x + 25, 200, label, false, false, 100);
     auto asset = findIcon(weatherIcon(d.code));
     frame.drawBitmap(x + 3, 228, asset->largeForecast, 48, 48, 1);
-    text(x + 53, 225, "H");
-    largeValue(x + 66, 221, d.high, true);
-    text(x + 53, 254, "L");
-    largeValue(x + 66, 250, d.low, true);
+    text(x + 49, 225, "H");
+    largeValue(x + 60, 221, d.high, true);
+    text(x + 49, 254, "L");
+    largeValue(x + 60, 250, d.low, true);
     readable(x + 45, 279, value(d.probability) + "%", true, false, 76);
   }
 }
