@@ -221,17 +221,20 @@ void Screen::largeValue(int x, int y, float n, bool degree) {
     frame.drawCircle(x + width + 5, y + 3, 2, 1);
 }
 void Screen::largeHome(const Config &c, const Weather &w, const UI &ui, int64_t now) {
-  // Two header rows replace the footer; last sync changes only after success.
-  frame.fillRect(0, 0, 400, 32, 1);
-  readable(10, 4, c.label, false, true, 165);
-  text(214, 7, localTime(now, "%a %d %b %H:%M"), 1, true, 181);
+  // One header line: location left, provider/date and successful sync right.
+  frame.fillRect(0, 0, 400, 28, 1);
+  const std::string info = "Open-Meteo, " + localTime(now, "%d/%m") + " (Sync " +
+                           localTime(w.fetched, "%d/%m %H:%M") + ")";
+  const int infoX = 390 - int(info.size()) * 6;
+  readable(10, 8, c.label, false, true, infoX - 22);
+  text(infoX, 11, info, 1, true, 390 - infoX);
   std::string status = ui.busy ? "Updating" : ui.message;
   if (status.empty() && now - w.fetched > 2 * Hour)
     status = "STALE";
-  text(10, 22, status.empty() ? "Open-Meteo" : status, 1, true, 180);
-  text(214, 22, "Sync " + localTime(w.fetched, "%d/%m %H:%M"), 1, true, 181);
   hero(w);
   text(12, 119, "Feels " + value(w.feels, true), 2, false, 126);
+  if (!status.empty())
+    text(12, 137, status, 1, false, 186);
   auto day = today(w, now);
   readable(12, 148, "High");
   readable(75, 148, "Low");
@@ -259,11 +262,17 @@ void Screen::largeHome(const Config &c, const Weather &w, const UI &ui, int64_t 
     const auto label = localTime(mktime(&date), "%a %d");
     readable(x + 25, 200, label, false, false, 100);
     auto asset = findIcon(weatherIcon(d.code));
-    frame.drawBitmap(x + 3, 228, asset->largeForecast, 48, 48, 1);
-    text(x + 49, 225, "H");
-    largeValue(x + 60, 221, d.high, true);
-    text(x + 49, 254, "L");
-    largeValue(x + 60, 250, d.low, true);
+    // Option B: temperatures on the left, condition icon on the right.
+    for (int yy = 0; yy < 40; ++yy)
+      for (int xx = 0; xx < 40; ++xx) {
+        int sx = xx * 48 / 40, sy = yy * 48 / 40;
+        if (pgm_read_byte(asset->largeForecast + sy * 6 + sx / 8) & (0x80 >> (sx % 8)))
+          frame.drawPixel(x + 80 + xx, 232 + yy, 1);
+      }
+    readable(x + 8, 224, "H", false, false, 24);
+    largeValue(x + 25, 221, d.high, true);
+    readable(x + 8, 253, "L", false, false, 24);
+    largeValue(x + 25, 250, d.low, true);
     readable(x + 45, 279, value(d.probability) + "%", true, false, 76);
   }
 }

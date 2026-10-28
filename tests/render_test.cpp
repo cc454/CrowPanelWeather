@@ -46,6 +46,18 @@ int main(int argc, char **argv) {
     out << "P4\n400 300\n";
     out.write((const char *)screen.buffer(), 15000);
   }
+  // Header must reserve space for provider/date/sync with a long location.
+  ui.view = cpw::View::Home;
+  config.label = "Long location name near the weather board";
+  ui.message = "HTTPS / DNS / certificate connection failed";
+  screen.draw(config, &weather, ui, weather.currentTime + 3 * cpw::Hour);
+  {
+    std::ofstream out("tests/build/large-3-header-status.pbm", std::ios::binary);
+    out << "P4\n400 300\n";
+    out.write((const char *)screen.buffer(), 15000);
+  }
+  config.label = "Zurich";
+  ui.message.clear();
   // Extreme temperatures must fit the hero region without changing icon proportions.
   weather.current = -42;
   ui.view = cpw::View::Home;

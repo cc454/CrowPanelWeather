@@ -43,7 +43,7 @@ At one combined request per scheduled update, a 60-minute interval means 24 norm
 | R13 | Load/save configuration and cache using microSD; use an internal last-known-good copy so an absent card after successful setup does not stop operation. First startup without valid configuration gives a setup message. No hot-swap requirement. |
 | R14 | Menu, Exit and the up/down/press switch provide all ordinary interaction. Boot and Reset retain their hardware roles. No keyboard-style credential entry on the display. |
 | R15 | Support explicit USB and battery operating profiles; USB remains responsive, battery profile sleeps between updates. Wake and button responsiveness during sleep require verification on the actual board before being promised. |
-| R16 | Offer Classic three, Classic five and Large three on the 400×300 panel. Keep the black header, equal visible heights for current temperature and condition symbol, and today's dotted 5°C curve. All three show feels-like, High, Low, today's Rain %, provider attribution and freshness status; Classic layouts also show UV max. Large three replaces UV with Rain, enlarges today's key values and three forecast tiles, removes the footer, and shows sync/status in the header. Move its forecast high/low readings slightly left for balanced column margins. All three omit the selection underline beneath forecast tiles. A failed fetch must not advance the sync timestamp. Classic layouts retain their footer. Verify fit and readability on the panel. |
+| R16 | Offer Classic three, Classic five and Large three on the 400×300 panel. Keep the black header, equal visible heights for current temperature and condition symbol, and today's dotted 5°C curve. All three show feels-like, High, Low, today's Rain %, provider attribution and freshness status; Classic layouts also show UV max. Large three uses approved option B: larger H/L labels and values left, condition icons right. It replaces UV with Rain and has no footer. Its single-line header has left-aligned location and right-aligned Open-Meteo, current date and parenthesized sync date/time; omit the current clock. Update/stale/error messages sit beneath Feels. All three omit forecast selection underlines. Failed fetches retain the successful sync timestamp. Classic layouts retain their footer. |
 
 ### Proposed configuration contract
 
@@ -81,7 +81,7 @@ Open-Meteo field plan: current `temperature_2m`, `apparent_temperature`, `weathe
 
 ## Screen and controls
 
-Selected layouts: Classic three, Classic five and Large three at 400×300. All use a black header, equally tall current temperature/symbol, today's curve and Rain %. Classic layouts retain UV max and a footer. Large three enlarges High/Low/Rain and forecast text, replaces UV with Rain, and moves sync/status to the header with no footer. Forecast tiles have no underline. Classic five remains the default. Optional wind/sun information uses details so the dashboard stays readable.
+Selected layouts: Classic three, Classic five and Large three at 400×300. All use a black header, equally tall current temperature/symbol, today's curve and Rain %. Classic layouts retain UV max and a footer. Large three uses approved option B with temperatures/larger H/L labels left and icons right. Its single header line shows location left and provider/current date/sync date-time right, with no current clock or footer. Rain replaces UV; status messages appear under Feels. Forecast tiles have no underline. Classic five remains the default.
 
 | Control | Proposed behavior |
 | --- | --- |
