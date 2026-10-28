@@ -3,7 +3,7 @@
 #include "panel.h"
 
 static Panel panel;
-static const char *revision = CPW_GREEN_PANEL ? "GREEN" : "LEGACY";
+static const char *revision = "GREEN";
 
 void setup() {
   Serial.begin(115200);

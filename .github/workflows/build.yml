@@ -12,8 +12,8 @@ jobs:
           python-version: '3.12'
       - name: Install build tools
         run: python -m pip install platformio==6.1.18 pillow
-      - name: Compile both display revisions
-        run: pio run -e crowpanel_green -e crowpanel_legacy
+      - name: Compile green weather app and display test
+        run: pio run -e crowpanel_green -e display_test_green
       - name: Parser, DST and renderer checks
         run: python tools/test-native.py
       - name: Upload firmware and rendered screens
@@ -25,9 +25,9 @@ jobs:
             .pio/build/crowpanel_green/firmware.bin
             .pio/build/crowpanel_green/bootloader.bin
             .pio/build/crowpanel_green/partitions.bin
-            .pio/build/crowpanel_legacy/firmware.bin
-            .pio/build/crowpanel_legacy/bootloader.bin
-            .pio/build/crowpanel_legacy/partitions.bin
+            .pio/build/display_test_green/firmware.bin
+            .pio/build/display_test_green/bootloader.bin
+            .pio/build/display_test_green/partitions.bin
             tests/build/*.png
             licenses/
             THIRD_PARTY.md

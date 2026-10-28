@@ -17,7 +17,7 @@ void digitalWrite(int pin, int level) {
     lowAt = tick;
   if (pin == 47 && previous == LOW && level == HIGH) {
     lowDuration = tick - lowAt;
-    busy = CPW_GREEN_PANEL;
+    busy = true;
   }
 }
 int digitalRead(int pin) { return pin == 48 ? int(busy) : pins[pin]; }
@@ -27,7 +27,7 @@ void delayMicroseconds(uint32_t) {}
 uint8_t SPIStub::transfer(uint8_t value) {
   ++bytes;
   if (!pins[46]) {
-    if (value == (CPW_GREEN_PANEL ? 0x17 : 0x20)) {
+    if (value == 0x17) {
       ++updates;
       busy = holdBusy;
     }
@@ -42,11 +42,10 @@ int main() {
   assert(bytes == 0);
   assert(panel.show(image));
   assert(updates == 1 && bytes > 30000);
-  assert(lowDuration == (CPW_GREEN_PANEL ? 100u : 10u));
+  assert(lowDuration == 100u);
   holdBusy = true;
   uint32_t before = tick;
   assert(!panel.show(image));
   assert(tick - before >= 20000);
-  std::printf("Panel %s: startup, reset pulse, null buffer and stuck-BUSY checks passed\n",
-              CPW_GREEN_PANEL ? "green" : "legacy");
+  std::puts("Green panel: startup, reset pulse, null buffer and stuck-BUSY checks passed");
 }

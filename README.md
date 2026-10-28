@@ -8,7 +8,7 @@ Includes Classic three, Classic five and Large three views, physical-button menu
 ![Classic three rendered by the firmware](docs/classic-3.png)
 ![Large three rendered by the firmware](docs/large-3.png)
 
-These frames come from the actual renderer with sample forecast data. Both panel builds compile and native parser/renderer tests are included. **A physical board has not been flashed or tested in this project yet.** Panel appearance, SD compatibility, power consumption and wake behavior need the first hardware check.
+These frames come from the actual renderer with sample forecast data. The green-panel weather app and display test compile, and native parser/renderer tests are included. Green-panel refresh and the weather app have been verified on the user's board. SD compatibility, measured power consumption and battery wake behavior still need validation.
 
 ## What you need
 
@@ -63,14 +63,14 @@ Forecast days accepts **3 or 5**; power profile accepts **usb or battery**. Opti
 
 Eject the card safely and insert it into the unpowered board. Hot swapping is not required. Credentials are plaintext on the card and in saved board setup; private files must not be committed.
 
-### 3. Select the panel revision
+### 3. Use the green-panel builds
 
-| Board | Build environment |
+| Purpose | Build environment |
 | --- | --- |
-| Revised panel with a green circular sticker on the rear | `crowpanel_green` — default |
-| Original panel without the sticker | `crowpanel_legacy` |
+| Weather app | `crowpanel_green` — default |
+| Standalone screen test | `display_test_green` |
 
-The fixed GPIOs are identical, but the controller commands differ. If serial logs show the app running while the screen stays blank/garbled, check the revision and try the other environment. Do not change GPIOs to compensate for a wrong driver.
+Both builds support the revised panel identified by a green circular sticker on the rear. The weather app uses hardware SPI; the standalone test uses software SPI. Only this panel driver is included. Do not change GPIOs to compensate for incompatible hardware.
 
 ### 4. Build and upload
 
@@ -85,7 +85,7 @@ pio run -e crowpanel_green -t upload --upload-port COM4
 pio device monitor --port COM4 --baud 115200
 ```
 
-Replace `COM4` with your board's port, such as `/dev/ttyACM0` on Linux. Use `crowpanel_legacy` in both build/upload commands for the original panel. Close the serial monitor before uploading again.
+Replace `COM4` with your board's port, such as `/dev/ttyACM0` on Linux. Close the serial monitor before uploading again.
 
 If the board is not detected, try a known data cable and another USB socket. To enter download mode manually: hold **Boot**, press/release **Reset**, then release **Boot**. Upload again. Press Reset after uploading if needed. USB ports may change between download mode and the app.
 
@@ -144,7 +144,7 @@ The app does not automatically detect the power source or show an uncalibrated b
 
 | Symptom | Check |
 | --- | --- |
-| Blank/garbled screen with app logs | Green/legacy build, board revision and supply; display busy times out after 20 seconds |
+| Blank/garbled screen with app logs | Run `display_test_green`, check compatible hardware and supply; display busy times out after 20 seconds |
 | No weather data | Exact filenames without `.txt`, valid JSON, coordinates and credentials |
 | Wi-Fi fails | 2.4 GHz personal/open network; no captive portal; spelling and signal |
 | Time sync fails | Router permits NTP; HTTPS certificate checking requires a valid clock |
@@ -162,9 +162,8 @@ The onboard CH340C USB bridge uses UART0 at 115200 baud. Native USB CDC at boot
 is disabled so application diagnostics appear on the same port as upload and ROM
 messages.
 
-Display test v2 corrects startup ordering: the green controller receives its
-initialization before waiting for BUSY; legacy uses its own 100/10/10 ms reset
-timing and waits before software reset. Both still have a 20-second refresh timeout.
+The green controller receives initialization before waiting for BUSY. The weather
+app and display test both use a 20-second refresh timeout.
 
 If the factory image remains after a successful upload, remove the microSD card
 with USB disconnected. Upload **Project Tasks → display_test_green → General →
@@ -172,11 +171,10 @@ Upload**, then open that environment's **Monitor** and press Reset. The test use
 software SPI, skips storage and networking, and attempts one full refresh of a
 bordered **DISPLAY TEST / GREEN** pattern. It logs reset, BUSY and refresh progress,
 then an `Alive` line every five seconds. `READY` only means the busy wait completed;
-check the actual screen. If the test stays unchanged, repeat with
-**display_test_legacy** and record the monitor output and whether either image
-appeared. An image with one test identifies a working driver/transport combination;
-failure with both does not by itself prove defective hardware. Re-upload the weather
-environment after testing. The test does not erase saved configuration.
+check the actual screen. If the test stays unchanged, record the monitor output
+and verify the board model, USB supply and display connection. A failed test alone
+does not establish defective hardware. Re-upload **crowpanel_green** after testing.
+The test does not erase saved configuration.
 
 The app never formats the microSD card. Missing-card mount errors are expected
 without a card. `No core dump partition found` alone is not evidence of a crash.
@@ -184,14 +182,14 @@ If a card also becomes unreadable on a computer, keep it out of the board and ch
 with another reader before reusing it; back up readable files before formatting.
 
 ```sh
-pio run -e crowpanel_green -e crowpanel_legacy
+pio run -e crowpanel_green -e display_test_green
 python tools/test-native.py
 ```
 
 Native checks need a C++17 compiler (`g++` by default, or `--compiler "clang++"` / `--compiler "zig c++"`) and PlatformIO-installed libraries. Pillow optionally converts rendered PBM frames to PNG. Linux also tests DST transitions; Windows skips those cases because its C runtime does not fully implement POSIX transition expressions. ESP32/newlib uses POSIX timezone support.
 
-The committed forecast fixture keeps tests offline. Intentionally update it with `python tools/fetch-fixture.py`. `tools/update-resources.py` refreshes the verified API trust anchor and IANA/POSIX table; ordinary builds need neither script. GitHub Actions compiles both revisions, runs native checks and uploads firmware parts/rendered frames.
+The committed forecast fixture keeps tests offline. Intentionally update it with `python tools/fetch-fixture.py`. `tools/update-resources.py` refreshes the verified API trust anchor and IANA/POSIX table; ordinary builds need neither script. GitHub Actions compiles the green weather app and standalone display test, runs native checks and uploads firmware parts/rendered frames.
 
-Physical first-flash, orientation/contrast, controls, SD compatibility and measured sleep/wake current remain unverified. OTA, web provisioning, indoor sensors and alternate weather providers are outside this version.
+Green-panel flashing, full refresh and weather rendering have been verified on the user's board. SD compatibility, the full controls acceptance checks and measured sleep/wake current still need validation. OTA, web provisioning, indoor sensors and alternate weather providers are outside this version.
 
 [Requirements](requirements.md) · [User stories](user-stories.md) · [Hardware specifications](specs) · [Assets](assets/README.md) · [Third-party notices](THIRD_PARTY.md)

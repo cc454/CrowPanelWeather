@@ -103,7 +103,7 @@ Menus include Refresh, Forecast view (Classic three / Classic five), power profi
 - Test with a real 400×300 frame: no clipping, distinguishable symbols, readable negative and two-digit temperatures, dates, units and percentages. Validate both Classic layouts with the symbol matching the temperature numerals' visible height and the 5°C dotted graph grid. Verify clear, rain, cloud, mixed and snow artwork at that shared height, preserving aspect ratio and avoiding overlap. Five columns and the curve must coexist before the layout is accepted.
 - Show “Weather: Open-Meteo” on the dashboard and provide the full attribution link in help/documentation.
 - Bound response/cache sizes to available memory and recover gracefully from malformed files, missing values, interrupted writes and missing storage.
-- Identify the board/display revision before selecting a driver. Do not assume every 4.2-inch revision has identical behavior.
+- Firmware and the standalone screen test support only the identified green-sticker panel. Keep its initialization sequence and fixed GPIOs; other 4.2-inch controllers are outside scope.
 
 ## Battery and USB requirements
 

@@ -1,5 +1,5 @@
 // Original driver implementation. Register values follow Elecrow's published
-// legacy and green-sticker hardware examples; see THIRD_PARTY.md for references.
+// green-sticker hardware example; see THIRD_PARTY.md for references.
 #include "panel.h"
 #include <SPI.h>
 static constexpr int CS = 45, DC = 46, RST = 47, BUSY_PIN = 48;
@@ -89,31 +89,13 @@ bool Panel::show(const uint8_t *bits) {
   SPI.beginTransaction(SPISettings(4000000, MSBFIRST, SPI_MODE0));
 #endif
   digitalWrite(RST, HIGH);
-#if CPW_GREEN_PANEL
   delay(10);
   digitalWrite(RST, LOW);
   delay(100);
   digitalWrite(RST, HIGH);
   delay(100);
-#else
-  delay(100);
-  digitalWrite(RST, LOW);
-  delay(10);
-  digitalWrite(RST, HIGH);
-  delay(10);
-#endif
-#if !CPW_GREEN_PANEL
-  // Legacy controller is ready before its software reset. The green
-  // controller must receive initialization first, as in Elecrow's example.
-  if (!ready()) {
-#if !CPW_PANEL_BITBANG
-    SPI.endTransaction();
-#endif
-    return false;
-  }
-#endif
+  // Send initialization before waiting for BUSY, as in Elecrow's example.
   Serial.println("[display] Reset complete; sending registers and image");
-#if CPW_GREEN_PANEL
   reg(0x00, {0x3f, 0x4d});
   reg(0x01, {0x03, 0x10, 0x3f, 0x3f, 0x03});
   reg(0x06, {0x96, 0x96, 0x29});
@@ -139,27 +121,6 @@ bool Panel::show(const uint8_t *bits) {
       data(i < 7 ? wave[row][i] : 0);
   }
   reg(0x17, {0xa5});
-#else
-  command(0x12);
-  delay(10);
-  if (!ready()) {
-#if !CPW_PANEL_BITBANG
-    SPI.endTransaction();
-#endif
-    return false;
-  }
-  reg(0x21, {0x40, 0});
-  reg(0x3c, {0x05});
-  reg(0x11, {0x03});
-  reg(0x44, {0, 49});
-  reg(0x45, {0, 0, 0x2b, 0x01});
-  reg(0x4e, {0});
-  reg(0x4f, {0, 0});
-  pixels(0x26, bits, true);
-  pixels(0x24, bits);
-  reg(0x22, {0xf7});
-  command(0x20);
-#endif
   delay(100);
   Serial.printf("[display] Refresh sent; BUSY=%d\n", digitalRead(BUSY_PIN));
   bool ok = ready();
@@ -174,11 +135,7 @@ void Panel::sleep() {
 #if !CPW_PANEL_BITBANG
   SPI.beginTransaction(SPISettings(4000000, MSBFIRST, SPI_MODE0));
 #endif
-#if CPW_GREEN_PANEL
   reg(0x07, {0xa5});
-#else
-  reg(0x10, {0x01});
-#endif
 #if !CPW_PANEL_BITBANG
   SPI.endTransaction();
 #endif

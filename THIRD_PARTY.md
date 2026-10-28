@@ -9,9 +9,8 @@ Application source: MIT unless stated otherwise. Original artwork: CC0-1.0. Depe
 - nayarsystems/posix_tz_db: generated timezone table. https://github.com/nayarsystems/posix_tz_db — MIT; `licenses/posix_tz_db.txt`.
 - Open-Meteo: https://open-meteo.com/ and https://open-meteo.com/en/docs — weather data attribution, CC BY 4.0.
 
-The original transport uses hardware register/command information from Elecrow's original and green-sticker examples:
+The original transport uses hardware register/command information from Elecrow's green-sticker example:
 
-- https://github.com/Elecrow-RD/CrowPanel-ESP32-4.2-E-paper-HMI-Display-with-400-300/tree/master/example/arduino/Examples/4.2_Global_refresh
 - https://github.com/Elecrow-RD/CrowPanel-ESP32-4.2-E-paper-HMI-Display-with-400-300/tree/master/example/arduino_A_green_circular_sticker_on_the_back/Examples/4.2_Example7_Global_Refresh
 
 The renderer and transport were written for this project. Source from the GPL-licensed echo-cool and viixxiiv apps was not incorporated; they remain design/hardware references.
